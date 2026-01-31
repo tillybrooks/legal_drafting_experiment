@@ -342,14 +342,29 @@ function normalizeStr(s) {
           }*/
 
           on_finish: function(data) {
-            const respObj = data.responses;
+            let chosen = "";
+            try {
+              const resp = JSON.parse(data.responses || "{}"); // data.responses is a JSON string
+              chosen = normalizeStr(resp.comp);
+            } catch (e) {
+              console.warn("Could not parse data.responses:", data.responses, e);
+              chosen = normalizeStr(data.responses); // fallback
+            }
+
+            const correct = normalizeStr(item.comp_correct);
+
+            data.comp_correct = correct;
+            data.comp_response = chosen;
+            data.comp_accuracy = (chosen === correct);
+
+            /*const respObj = data.responses;
             const chosen = String(respObj ?? "").trim();
             const correctRaw = String(item.comp_correct ?? "").trim();
             const correctEsc = escapeHTML(correctRaw);
 
             data.comp_correct = correctRaw;
             data.comp_response = chosen;
-            data.comp_accuracy = (chosen === correctEsc);
+            data.comp_accuracy = (chosen === correctEsc);*/
           }
         });
 
