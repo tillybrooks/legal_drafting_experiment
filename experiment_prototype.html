@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Draft Legislation Feedback</title>
+  <script src="https://unpkg.com/jspsych@7.3.0"></script>
+  <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@1.1.1"></script>
+  <script src="https://unpkg.com/@jspsych/plugin-survey-text@1.1.1"></script>
+  <script src="https://unpkg.com/@jspsych/plugin-html-button-response@1.1.3"></script>
+  <script src="https://unpkg.com/@jspsych/plugin-survey-multi-choice@2.1.0"></script>
+  <script src="https://unpkg.com/@jspsych/plugin-survey-likert@2.1.0"></script>
+  <script src="https://unpkg.com/@jspsych/plugin-instructions@1.1.3"></script>
+  <script src="https://unpkg.com/@jspsych-contrib/plugin-pipe"></script>
+    <script src="https://unpkg.com/papaparse@5.4.1/papaparse.min.js"></script>
+<link href="https://unpkg.com/jspsych@7.3.3/css/jspsych.css" rel="stylesheet" type="text/css" />
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 20px;
+    }
+    .jspsych-content {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .draft-box {
+    border: 2px solid #333;
+    border-radius: 8px;
+    padding: 16px 18px;
+    margin: 20px 0;
+    background-color: #fafafa;
+    font-size: 1.05em;
+    line-height: 1.5;
+  }
+
+  .draft-box-title {
+    font-weight: 600;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.85em;
+    color: #444;
+  }
+
+  .jspsych-survey-multi-choice-option label {
+    display: block;
+    padding-left: 1.6em;      /* space for radio button */
+    text-indent: -1.6em;      /* pull first line back */
+    line-height: 1.4;
+  }
+
+  .jspsych-survey-multi-choice-option input[type="radio"] {
+    margin-right: 0.4em;
+  }
+
+  .jspsych-content ul {
+    text-align: left;
+    display: inline-block;
+    margin-left: 0;
+    padding-left: 1.2em;
+  }
+  .jspsych-content p + ul {
+    margin-top: 2px;
+  }
+
+  .jspsych-content ul {
+    margin-bottom: 12px;
+  }
+  </style>
+</head>
+
+<body>
+    <div id="jspsych-experiment"></div>
+  
+    <script>
+      const jsPsych = initJsPsych({
+        show_progress_bar: true,
+        auto_update_progress_bar: true,
+        on_finish: function() {
+          //this displays data to browser at the end of the experiment (useful for development purposes, but comment out for actual study)
+          //jsPsych.data.displayData();
+          // currently displaying data for
+          // jsPsych.data.get().localSave('csv', 'legalese_experiment_data.csv');
+        }
+      });
+
+      //save data for each participant
+      const subject_id = jsPsych.randomization.randomID(10);
+      const filename = `${subject_id}.csv`;
+
+
+      //set up timeline for trials
+      const timeline = [];
+      
+  const instructions = {
+    type: jsPsychInstructions,
+    pages: ['<div class="content"><h2 >Consent </h2>' +
+    `<p style="text-align: left;">  Protocol Director: <strong>Robert Hawkins</strong> <br>
+Protocol Title:  <strong>Communication and social cognition in natural audiovisual
+contexts </strong><br>
+IRB# <strong>77226</strong><br>
+<strong>DESCRIPTION:</strong> You are invited to participate in a research study about legislative drafting. The purpose of the research is to understand how different 
+ strategies affect the clarity and authoritativeness of legal texts. This
+research will be conducted through the Prolific platform, including participants from the
+US. If you decide to participate in this research, you will play the role of a consultant working with legislators drafting bills
+related to a wide range of legal topics. <br>
+<strong>TIME INVOLVEMENT:</strong> The task will last the amount of time advertised on Prolific. You
+are free to withdraw from the study at any time.<br>
+<strong>RISKS AND BENEFITS:</strong>  You may  experience discomfort when being
+asked to discuss or challenge emotionally salient political beliefs or when reading 
+draft legislation related to sensitive topics such as firearms and child abuse. Study data will be
+stored securely, in compliance with Stanford University standards, minimizing the risk of
+confidentiality breach. This study advances our scientific understanding of how people
+understand and react to the law in naturalistic settings. This study may lead to further
+insights about what kinds of legislation are most effective and aid in the development of potential interventions to
+overcome these barriers. <strong>We cannot and do not guarantee or promise that you will
+receive any benefits from this study.</strong><br>
+<strong>PAYMENTS:</strong> You will receive payment in the amount advertised on Prolific. If you do not
+complete this study, you will receive prorated payment based on the time that you have
+spent. Additionally, you may be eligible for bonus payments as described in the
+instructions.<br>
+<strong>PARTICIPANT’S RIGHTS:</strong> If you have read this form and have decided to participate in
+this project, please understand <strong>your participation is voluntary</strong> and you have the <strong>right
+to withdraw your consent or discontinue participation at any time without
+penalty or loss of benefits to which you are otherwise entitled. The alternative
+is not to participate.</strong> You have the right to refuse to answer particular questions. The
+results of this research study may be presented at scientific or professional meetings or
+published in scientific journals. Your individual privacy will be maintained in all published
+and written data resulting from the study. In accordance with scientific norms, the data
+from this study may be used or shared with other researchers for future research (after
+removing personally identifying information) without additional consent from you.<br>
+<strong>CONTACT INFORMATION: Questions:</strong> If you have any questions, concerns or
+complaints about this research, its procedures, risks and benefits, contact the Protocol
+Director, Robert Hawkins (rdhawkins@stanford.edu, 217-549-6923).<br>
+<strong>Independent Contact:</strong> If you are not satisfied with how this study is being conducted,
+or if you have any concerns, complaints, or general questions about the research or your
+rights as a participant, please contact the Stanford Institutional Review Board (IRB) to
+speak to someone independent of the research team at 650-723-2480 or toll free at 1-
+866-680-2906, or email at irbnonmed@stanford.edu. You can also write to the Stanford
+IRB, Stanford University, 1705 El Camino Real, Palo Alto, CA 94306. Please save or print a
+copy of this page for your records. <br>
+<strong>If you agree to participate in this research, please click “continue”.</strong></p>`,
+      '<div class="content"><h2>Draft Legislation Feedback Survey</h2>'+ 
+      '<p>In this study, you will be asked to pretend to be a <strong>consultant for legislators</strong> working on a series of bills.</p>'+
+      '<p>The drafters are interested in creating laws that are as <strong>clear</strong> and as <strong>authoritative</strong> as possible and are seeking feedback from constituents about their bills.</p>'+
+          '<p>For each section, you will:</p>'+
+          '<ul><li>Read a statutory provision</li><li>Answer a question about the provision. Read carefully, as you will not be able to scroll back!</li><li>Rate how authoritative the section sounds</li><li>Briefly explain your rating</li></ul>'+
+    '<p>Click Continue to begin.</p></div>'
+
+      ],
+      button_label_next: "Continue",
+      button_label_previous: "Previous",
+      show_clickable_nav: true, 
+  };
+  timeline.push(instructions);
+/*
+      const welcome = {
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: `<p>Welcome!</p>
+          
+          <p>The drafters are interested in creating laws that are as <strong>clear</strong> and as <strong>authoritative</strong> as possible and are seeking feedback from constituents about their bills.</p>
+          <p>For each section, you will:</p>
+          <ul> 
+            <li>Read a statutory provision</li>
+            <li>Answer a question about the provision. Read carefully, as you will not be able to scroll back!</li>
+            <li>Rate how authoritative the section sounds</li>
+            <li>Briefly explain your rating</li>
+          </ul>
+          <p>Press the SPACE key to begin.</p>`
+      };
+*/
+function shuffleArray(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function normalizeStr(s) {
+  return String(s ?? "").trim();
+}
+
+      function escapeHTML(str) {
+        if (str === null || str === undefined) return "";
+        return String(str)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
+
+      function shuffle(arr) {
+        return jsPsych.randomization.shuffle(arr);
+      }
+
+      function sampleN(arr, n) {
+        if (arr.length < n) return null;
+        return shuffle(arr.slice()).slice(0, n);
+      }
+
+      async function loadCSV(path) {
+        const resp = await fetch(path, { cache: "no-store" });
+        if (!resp.ok) throw new Error(`Could not load CSV (${path}): ${resp.status} ${resp.statusText}`);
+        const text = await resp.text();
+
+        const parsed = Papa.parse(text, {
+          header: true,
+          skipEmptyLines: true
+        });
+
+        if (parsed.errors && parsed.errors.length) {
+          console.warn("CSV parse warnings:", parsed.errors);
+        }
+        return parsed.data;
+      }
+
+      async function buildAndRun() {
+        // Put your materials CSV in the same folder as this HTML (or update the path here).
+        const CSV_PATH = "usc_final_items.csv";
+
+        const materials = await loadCSV(CSV_PATH);
+
+        // Expect a column called "condition" with values like: HH, HL, LH, LL
+        const conditions = ["HHS", "HLS", "LHS", "LLS", "HHM", "HLM", "LHM", "LLM"];
+        const byCond = Object.fromEntries(conditions.map(c => [c, []]));
+
+        materials.forEach(row => {
+          const c = (row.x2x2x2_condition || "").trim();
+          if (byCond[c]) byCond[c].push(row);
+        });
+
+        // Select 16 total items = 2 per condition
+        // doing just one per condition for now so testing doesn't take that long to click through
+        let selected = [];
+        for (const c of conditions) {
+          const samp = sampleN(byCond[c], 1);
+          if (!samp) {
+            throw new Error(`Not enough rows for condition ${c}. Needed 3, found ${byCond[c].length}.`);
+          }
+          selected = selected.concat(samp.map(r => ({ ...r, x2x2x2_condition: c })));
+        }
+
+        selected = shuffle(selected);
+
+        selected.forEach((item, idx) => {
+          const draftText = escapeHTML(item.sent_text);
+          const question = escapeHTML(item.comp_prompt);
+          //const options = JSON.parse(item.comp_option).map(o => escapeHTML(o));
+
+          let optionsRaw = item.comp_option;
+          let options;
+
+          try {
+            options = JSON.parse((optionsRaw || "").trim());
+            if (!Array.isArray(options)) throw new Error("comp_option JSON is not an array");
+          } catch (e) {
+            console.error("Bad comp_option JSON:", {
+              sent_id: item.sent_id,
+              section_id: item.section_id,
+              condition: item.x2x2x2_condition,
+              comp_option: optionsRaw
+            });
+            throw new Error(`Bad comp_option JSON for sent_id=${item.sent_id}. See console for the raw value.`);
+          }
+
+          // options = options.map(o => escapeHTML(o));
+          options = shuffleArray(options); 
+
+          // shuffle options before escaping
+          
+          const correctText = String(item.comp_correct).trim();
+
+          const correctIndex = options.findIndex(o => String(o).trim() === correctText);
+
+          options = options.map(o => escapeHTML(o));
+
+          
+
+
+          timeline.push({
+            type: jsPsychHtmlButtonResponse,
+            stimulus: `<p>Trial ${idx + 1} of ${selected.length}.</p> 
+            <p> Please read the draft provision below carefully.  Make sure you understand it before moving on to the next page!</p>
+
+            <div class="draft-box">
+              <div class="draft-box-title">Draft Legislation</div>
+              <p>${draftText}</p>
+            </div>
+            `,
+            choices: ["Continue"],
+            data: {
+              phase: "read",
+              trial_index: idx + 1,
+              condition: item.x2x2x2_condition,
+              syn_level: item.syn_level,
+              sem_level: item.sem_level,
+              modal_pres: item.modal_pres,
+              sent_id: item.sent_id,
+              section_id: item.section_id
+            }
+          });
+          /* free response comprehension question (not using)
+          timeline.push({
+            type: jsPsychSurveyText,
+            questions: [{
+              prompt: "<p>What was this draft law about? Please explain your understanding of the bill in 1–2 sentences.</p>",
+              rows: 5
+            }],
+            data: {
+              phase: "comprehension",
+              trial_index: idx + 1,
+              condition: item.condition,
+              sent_id: item.sent_id
+            }
+          }); */
+
+          timeline.push({
+          type: jsPsychSurveyMultiChoice,
+          questions: [{
+            prompt: question,
+            name: 'comp',
+            options: options,
+            required: true
+          }],
+          data: {
+            phase: "comprehension",
+            condition: item["x2x2x2_condition"],
+            sent_id: item.sent_id
+          },
+          /*on_finish: function(data) {
+            data.comp_correct = item.comp_correct;
+            data.comp_accuracy = data.response.comp === item.comp_correct;
+          }*/
+
+          on_finish: function(data) {
+            const respObj = data.responses;
+            const chosen = String(respObj ?? "").trim();
+            const correctRaw = String(item.comp_correct ?? "").trim();
+            const correctEsc = escapeHTML(correctRaw);
+
+            data.comp_correct = correctRaw;
+            data.comp_response = chosen;
+            data.comp_accuracy = (chosen === correctEsc);
+          }
+        });
+
+          timeline.push({
+            type: jsPsychSurveyLikert,
+            questions: [{
+              prompt: `
+      <div class="law-excerpt">
+        <div class="label"><strong>Draft legislation (re-shown for reference):</strong></div>
+        <div class="draft-box">
+              <div class="draft-box-title">Draft Legislation</div>
+              <p>${draftText}</p>
+            </div>
+      </div>
+      <p><strong>How authoritative does this piece of draft legislation sound?</strong></p>
+    `,
+    required: true,
+              labels: [
+                "Not authoritative at all",
+                " ",
+                "Neutral",
+                " ",
+                "Very authoritative"
+              ]
+            }],
+            data: {
+              phase: "authority_rating",
+              trial_index: idx + 1,
+              condition: item.x2x2x2_condition,
+              sent_id: item.sent_id
+            }
+          });
+
+          timeline.push({
+            type: jsPsychSurveyText,
+            questions: [{
+              prompt: `
+      <div class="law-excerpt">
+        <div class="draft-box">
+              <div class="draft-box-title">Draft Legislation</div>
+              <p>${draftText}</p>
+            </div>
+      </div>
+      <p>In 1–2 sentences, please briefly describe your reasoning for the rating you gave:</p>
+    `,
+              rows: 5,
+              required: true,
+            }],
+            data: {
+              phase: "authority_explanation",
+              trial_index: idx + 1,
+              condition: item.x2x2x2_condition,
+              sent_id: item.sent_id
+            }
+          });
+        });
+        
+        const completion = {
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: '<div class="content"><h2>Thank you!</h2>' +
+                  '<p>The experiment is now complete.</p>'+
+                  '<p> Please wait for the data to save before closing this tab.</p>'+
+                  '<p>Press SPACE to finalize.</p>',
+        choices: [' ']
+      };
+      timeline.push(completion);
+
+    const save_data = {
+      type: jsPsychPipe,
+      action: "save",
+      experiment_id: "VMOo9BHyilIV",
+      filename: filename,
+      data_string: ()=>jsPsych.data.get().csv()
+    };
+
+  timeline.push(save_data);
+        timeline.push({
+          type: jsPsychHtmlKeyboardResponse,
+          stimulus: `<p>Thank you for participating!</p>
+            <p>You may now close the browser tab.</p>
+            <p>Press any key to finish.</p>`
+        });
+
+        jsPsych.run(timeline);
+      }
+
+      buildAndRun().catch(err => {
+        console.error(err);
+        document.querySelector("#jspsych-experiment").innerHTML =
+          `<div style="max-width:800px;margin:auto;background:white;padding:30px;border-radius:10px;">
+             <h2>Experiment failed to start</h2>
+             <p><strong>Error:</strong> ${escapeHTML(err.message)}</p>
+             <p>Common causes:</p>
+             <ul>
+               <li>The CSV file path is wrong (expected: <code>materials_candidates_balanced_chunks.csv</code> next to this HTML).</li>
+               <li>You opened the HTML with <code>file://</code> instead of serving it via a local web server.</li>
+             </ul>
+             <p>If you're testing locally, run <code>python3 -m http.server</code> in this folder, then open <code>http://localhost:8000/</code>.</p>
+           </div>`;
+      });
+</script>
+
+      
