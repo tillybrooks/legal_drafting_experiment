@@ -242,7 +242,7 @@ function normalizeStr(s) {
         // doing just one per condition for now so testing doesn't take that long to click through
         let selected = [];
         for (const c of conditions) {
-          const samp = sampleN(byCond[c], 1);
+          const samp = sampleN(byCond[c], 2);
           if (!samp) {
             throw new Error(`Not enough rows for condition ${c}. Needed 3, found ${byCond[c].length}.`);
           }
