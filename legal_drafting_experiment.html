@@ -446,7 +446,8 @@ function normalizeStr(s) {
           stimulus: `<p>Thank you for participating!</p>
             <p>You may now close the browser tab.</p>
             <p>Completion code: <strong>C195DYGA</strong></p>
-            <p>Press any key to finish.</p>`
+            <p>Press SPACE to finish.</p>`,
+        choices: [' ']
         });
 
         jsPsych.run(timeline);
@@ -460,7 +461,7 @@ function normalizeStr(s) {
              <p><strong>Error:</strong> ${escapeHTML(err.message)}</p>
              <p>Common causes:</p>
              <ul>
-               <li>The CSV file path is wrong (expected: <code>materials_candidates_balanced_chunks.csv</code> next to this HTML).</li>
+               <li>The CSV file path is wrong (expected: <code>materials.csv</code> next to this HTML).</li>
                <li>You opened the HTML with <code>file://</code> instead of serving it via a local web server.</li>
              </ul>
              <p>If you're testing locally, run <code>python3 -m http.server</code> in this folder, then open <code>http://localhost:8000/</code>.</p>
