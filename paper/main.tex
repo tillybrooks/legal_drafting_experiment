@@ -1,0 +1,199 @@
+%%%
+%%% Annual Cognitive Science Conference
+%%% Sample LaTeX Paper -- Proceedings Format
+%%%
+
+% Original : Ashwin Ram (ashwin@cc.gatech.edu)       04/01/1994
+% Modified : Johanna Moore (jmoore@cs.pitt.edu)      03/17/1995
+% Modified : David Noelle (noelle@ucsd.edu)          03/15/1996
+% Modified : Pat Langley (langley@cs.stanford.edu)   01/26/1997
+% Latex2e corrections by Ramin Charles Nakisa        01/28/1997
+% Modified : Tina Eliassi-Rad (eliassi@cs.wisc.edu)  01/31/1998
+% Modified : Trisha Yannuzzi (trisha@ircs.upenn.edu) 12/28/1999
+% Modified : Mary Ellen Foster (M.E.Foster@ed.ac.uk) 12/11/2000
+% Modified : Ken Forbus                              01/23/2004
+% Modified : Eli M. Silk (esilk@pitt.edu)            05/24/2005
+% Modified : Niels Taatgen (taatgen@cmu.edu)         10/24/2006
+% Modified : David Noelle (dnoelle@ucmerced.edu)     11/19/2014
+% Modified : Roger Levy (rplevy@mit.edu)             12/31/2018
+% Modified : Stephanie Denison                       11/29/2025
+% Modified : Dae Houlihan (daeda@mit.edu)            12/01/2025
+
+
+%%% Change "letterpaper" in the following line to "a4paper" if you must.
+
+\documentclass[10pt,letterpaper]{article}
+
+\usepackage{cogsci}
+\usepackage{graphicx}
+\usepackage{hyperref}
+
+% \cogscifinalcopy %%% Uncomment this line for the final submission
+
+%%% Bibliography %%%
+\usepackage[
+  style=apa,
+  natbib=true,
+  annotation=false,
+]{biblatex}
+\addbibresource{legal_drafting_experiment.bib} %%% Specify the path to a BibLaTeX file
+\setlength{\bibhang}{.125in}
+
+\usepackage{float} %%% Roger Levy added this and changed figure/table placement to [H] for conformity to Word template, though floating tables and figures to top is still generally recommended!
+
+% Sometimes it can be useful to turn off hyphenation for purposes such as spell checking of the resulting PDF.
+% \usepackage[none]{hyphenat} %%% Uncomment to turn off hyphenation
+
+\title{The socio-pragmatic function of linguistic complexity in the domain of law}
+
+%%% Format authors using helper functions from authblk package %%%
+\author[1]{\mbox{Author N. One (a1@uni.edu)}}
+\author[2]{\mbox{Author Number Two}}
+\affil[1]{Department of Hypothetical Sciences, University of Illustrations}
+\affil[2]{Department of Example Studies, University of Demonstrations}
+
+%%% Or, format authors manually %%%
+% \author{
+%   {\large\bfseries Author N. One (a1@uni.edu)$^1$ \& Author Number Two$^2$} \\
+%   {\normalsize\normalfont
+%     $^1$Department of Hypothetical Sciences, University of Illustrations \\
+%     $^2$Department of Example Studies, University of Demonstrations
+%   }
+% }
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Cognitive science research has cited efficiency as an explanation of the linguistic behavior observed across the world’s languages (\textit{e.g.}, Gibson et al. 2019). However, recent empirical legal work has challenged this view, as linguistic phenomena associated with processing difficulty have been found to occur frequently in legal texts. Some have argued that linguistic complexity is intentionally deployed to signal the law’s performative effects, even at the cost of increased processing difficulty \citep{martinez_even_2024}. We test this idea experimentally by examining the effect of distinct kinds of linguistic complexity on perceived authoritativeness. In a task where participants are asked to rate variously complex legal provisions, we assess the effect of syntactic complexity, jargon usage, and modal usage on perceived authority of statutory law.  We find that high jargon density is positively correlated with increased perceptions of authority while syntactic complexity and  modal usage are not.  
+
+
+\textbf{Keywords:}
+semantics; pragmatics; performativity; speech acts; law; psycholinguistics
+\end{abstract}
+
+\section{Introduction}
+
+Research across the subfields of linguistics related to the choices speakers make has revealed a general tendency to balance competing pressures arising out of cognitive limitations, social functions, and communicative needs.  Although it is clear that each of these factors is important for a sufficient explanation of human linguistic behavior, the precise division of labor of each of these pressures remains underdetermined.  On the one hand, it is clear that cognitive pressures must impose powerful limitations on language use.  It is not possible to use natural language in ways that the human brain cannot handle.  Beyond the constraints imposed by the brain, other pressures related to cognitive and communicative efficiency have been argued to shape language usage \citep{gibson_how_2019}.
+
+As compelling as these accounts are, however, genre-specific study of natural language usage indicates that efficiency is only part of the story.  Recent experimental and corpus research on language usage in the legal domain has revealed a tendency to use complex linguistic structures, such as jargon and other low-frequency items, center-embedded constructions, and unusual capitalizations \citep{martinez_poor_2022}.  A number of authors conducting experimental research on the language of the law have argued that the genre is markedly complex and that the distinguishing linguistic properties of law serve the sociopragmatic function of indicating performativity. The law is performative.  In other words, legal texts do not merely describe obligations; they also create them. 
+
+
+%\citet{martinez_poor_2022} argue that the processing difficulty associated with the law arises from these linguistic properties rather than conceptual ones.  In a production task designed to examine the linguistic decision-making involved with legal writing, \citet{martinez_even_2024} find that even writers without training in the law inject linguistic complexity into legal writing and omit it when describing legal content in non-legal genres. Similarly, \citet{brooks_shall_2026} argue that frequent usage of the modal item \textit{shall} is another distinguishing linguistic property of legal language.  These authors find that laypeople tasked with writing descriptions of the same law in performative and non-performative contexts use \textit{shall} significantly more often in performative contexts. 
+
+While there does appear to be reason to posit a link between linguistic complexity and sociopragmatic function, it is not clear from the current literature why users of legal language would utilize such cognitively costly means to achieve the goal of signalling performativity, particularly when evidence from other domains indicates that performative utterances may be formed in a variety of less complex utterances. Moreover, it is not clear which kinds of linguistic complexity facilitate performative usage nor how they do so. We therefore argue that further research into this domain is necessary, both for the purpose of refining our notion of the functional role of linguistic complexity and for better understanding the nature of legal language.
+
+\section{Complexity, performativity, and the law}
+Recent work on legalese has offered support for the position that the notorious complexity of the law serves a function and is not merely the result of the need to convey complex concepts. In a corpus-based and experimental study of legal language (“legalese”), \citet{martinez_poor_2022} find that linguistic properties known to cause processing difficulties for readers such as center-embedded syntactic constructions, low-frequency jargon, and passivization occur at significantly higher rates in contracts than in other genres of standard U.S. English.  This higher usage of complex linguistic properties in legal writing was observed to be accompanied by corresponding difficulty in processing legal texts, indicating that the notorious opacity of the law may be as much attributed to the linguistic form it takes as the intricate concepts it describes.  
+
+Building on their findings about processing difficulty in perception of legalese, \citet{martinez_even_2024} compare legal and non-legal language in a production in a follow up study.  Across two experiments, the authors task participants without legal training with describing legal requirements across three genres (\textit{i.e.}, legal, fictional writing, and tourism writing), in two writing processes (\textit{i.e.}, from scratch and in an iterative writing process), and in two different orders (i.e., describing the conditions for guilt first and describing penalties first).  Taking complex syntax as an outcome variable, the authors find that genre has an effect on center-embedded syntax usage while writing process and order do not.  Participants writing in the legal genre used center-embedded constructions at higher rates than those writing in the fictional writing and tour guide genres.  In a replication study investigating the effect of genre and writing process on the usage of modals in legal and non-legal writing, Brooks \& Hawkins (2026) find a similar effect of genre on the usage of the modal auxiliary \textit{shall}.  There, the authors report that participants tasked with writing conceptually equivalent descriptions of crimes in performative legal and non-performative non-legal contexts used \textit{shall} significantly more often in legal writing.  
+
+The findings of these studies comparing legal and non-legal writing indicate that the usage of the linguistic properties associated with legal language is motivated more by genre than communicative need.  Participants writing about the requirements of the law outside of the legal genre were able to convey the relevant conceptual information without using low-frequency tokens or center-embedded syntax at the rate observed in legal language.  This finding has been taken as evidence that the pressure motivating the usage of complex linguistic properties in legal language is related to performativity rather than communicative content (\cite{martinez_even_2024}, \cite{brooks_shall_2026}).  
+
+The law does not merely report the existence of obligations, rights, institutions, and other legal objects.  Rather, legal texts (in combination with appropriate legislative process) effectuate the legal institutions they describe.  The linguistic contents of performative utterances has long been argued to be directly tied to performative effect (\textit{e.g.}, \cite{searle_1969}).  Under the view that linguistic complexity of legalese is linked to performativity, the use of highly marked linguistic constructions in law serves the function of indicating that legal texts have the effect of creating obligations and rights under law. The observation that genre has a greater effect on usage of the linguistic properties associated with the law than content raises important questions about the nature of performative utterances.  Martínez et al. (2024) observe that performative utterances are often marked with distinguishing linguistic features (\textit{e.g.}, rhyming in magic spells) and propose that the use of complex syntactic structures is simply another case of speech act marking. 
+
+The processing difficulties associated with the properties of legal language complicate this narrative. Where writers may be motivated to use complex linguistic properties to signal legal effect, the tendency toward efficiency in human communication creates a countervailing pressure to reduce complexity in legal language.  Moreover, given the observation that it is possible to mark speech acts with simpler linguistic properties \citep{qi_discourse_2022}, it is unclear why legal language users opt to use cognitively costly linguistic traits to achieve this.  
+
+The theoretical literature on performative utterances in semantics and sociolinguistics  offers one possible explanation for the reliance on complex utterances when producing performative utterances: a link between complexity and perceived authority.  \citet{condoravdi_performative_2011} argue that, in directive speech acts like orders, the speaker issuing an order is presupposed to possess some authority over the addressee.  Similarly, \citet{bordieu} treats performative utterances as representations of authority.  On both of these views, authoritative speakers cultivate and maintain an appearance of authority in order to successfully complete certain directive speech acts.  Indeed, \citet{moldovan_technical_2022} has argued that experts strategically deploy jargon when addressing lay audiences for the purpose of appearing authoritative.  Although the link between perceived authority, performativity, and linguistic complexity has been discussed in theoretical research across subfields in linguistics, there is little experimental research investigating the topic. 
+
+Further investigation of the division of labor between communicative and cognitive efficiency on the one hand and sociopragmatic function on the other is thus motivated by the findings of recent research and theoretical claims in semantics and sociolinguistics.  The empirical findings about legal language indicate that the latter overrides the former, at least in some contexts.  However, the precise nature of the link between linguistic complexity and performativity remains unclear.  In this paper we discuss empirical evidence related to this link in the domain of law and discuss implications for performative utterances across areas of language usage.
+
+\section{Hypotheses}
+In this study, we aim to test whether there is a link between perceived authoritativeness and linguistic complexity in law.  We compare four hypotheses related to this relationship:
+\begin{enumerate}
+    \item \textsc{\textbf{Goldilocks Hypothesis}}: There is a link between linguistic complexity and perceived authority, with more complex utterances being rated as more authoritative.  However, the indexical relationship is mediated by a competing pressure to be efficient.  Thus, overly complex utterances are not predicted to be rated as highly authoritative as moderately complex ones.
+    \item \textsc{\textbf{Authority-Complexity Hypothesis}}: There is a link between linguistic complexity and perceived authority.  The link is such that perceived authority increases monotonically in proportion to complexity.
+    \item \textsc{\textbf{Efficient-Authority Hypothesis}}: There is a link between low linguistic complexity and perceived authority. This hypothesis predicts that the less complex utterances items will be perceived as more authoritative.
+    \item \textsc{\textbf{Null Hypothesis}}: There is no meaningful relationship between linguistic complexity and perceived authoritativeness in law. This hypothesis predicts that legal utterances of varying levels of linguistic complexity should receive similar authoritativeness ratings.
+    
+\end{enumerate}
+\section{Methods}
+In this experiment, participants were instructed to pretend that they were for legislators preparing bills on a variety of topics.  Informed that the drafters were seeking to make their draft laws as clear and authoritative sounding as possible, participants read variously complex legal provision, answered a multiple choice comprehension question, rated the authoritativeness of the draft law on a five point Likert scale, and then briefly described their reasoning for their rating.
+
+\subsection{Experimental design}
+The study uses a 2x2x2 design, with the main manipulations in the experiment being syntactic complexity, legal jargon density, and \textit{shall} usage.  
+
+\subsubsection{Stimuli.}All stimuli consist of statutory provisions drawn from United States Code, the official publication of federal statutory law. side from appendices, the entirety of the code was used as a source for stimuli.\footnote{The data used in this project is available at \href{https://uscode.house.gov/download/download.shtml}{https://uscode.house.gov/download/download.shtml}. A} The statutes were parsed divided, into sentences, chunked into sentence clusters of three to four sentences, and then assessed for syntactic complexity and jargon density.  Syntactic complexity was measured in terms of mean dependency length across the sentence cluster.  Jargon density was calculated by identifying the proportion of specialized legal terms of each cluster that consisted of specialized legal terms. Jargon was identified using a glossary of the most common legal terms compiled using a variety of references commonly used in legal practice.\footnote{ This glossary may be found \href{https://legal.thomsonreuters.com/blog/legal-glossary/}{online} and in the project Github.}.  To avoid the conflation of semantic and syntactic complexity, the jargon list consists primarily of lexical items.
+
+The sentence chunks were then ranked by mean dependency length and jargon density.  Items in the top and bottom quartiles for each of the two properties were then identified and intersected.  Thus, a set of naturalistic stimuli representing four different levels of syntactic complexity and jargon usage was generated.  
+
+%\begin{figure}[h]
+%    \centering
+ %   \includegraphics[width=0.75\linewidth]{2x2.png}
+  %  \caption{Syntactic complexity and jargon density conditions}
+   % \label{fig:2x2}
+%\end{figure}
+
+Once potential items were categorized into the four conditions described above, sentence clusters drawn from statutory amendment notes were removed from the candidate pool.  Additionally, each cluster was coded for its usage of modals, with the items using both \textit{shall} and \textit{may} being separated from those that only use the modal \textit{may}.  This categorization was used as the basis for the third manipulation.  Thus, items in eight conditions were identified for use in the study.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{2x2x2.png}
+    \caption{Eight conditions used in the 2x2x2 study}
+    \label{fig:placeholder}
+\end{figure}
+
+\subsubsection{Procedure.}Participants (N=203) recruited via Prolific were instructed to pretend to be consultants for legislators working on a series of bills. They were informed that the drafters were interested in creating laws that sound as authoritative as possible and were seeking feedback from their constituents about their bills.  Participants then read brief statutory provisions, and, after reading the text, answered a multiple choice question about the contents of the section, rated the perceived authoritativeness of the section on a five point Likert scale, and wrote a brief description of  their reasoning for their authoritativeness rating. A within subject design was used, and all participants saw two items in each of the eight conditions. All participants completed sixteen trials, with two trials in each condition. The conditions were presented in a randomized order. 
+
+\section{Results}
+
+Authoritativeness ratings across items were generally high, with a mean of 3.98 (SD = 1.09), a median of 4, and a mode of 5. The distribution was left-skewed: 40.5\% of ratings were 5 (very authoritative), 31.9\% were 4, 16.7\% were 3, 7.3\% were 2, and 3.6\% were 1 (not authoritative). Comprehension accuracy was high overall (M = 89.6\%), indicating that participants generally understood the statutory provisions.
+
+We analyzed the results using linear mixed-effects regression with authoritativeness rating as the outcome variable. Syntactic complexity, jargon density, and \textit{shall} usage were included as fixed effects, along with all two- and three-way interactions. Participant and item were included as random intercepts; the sparse within-cell observations (two items per condition per participant) precluded reliable estimation of random slopes.
+
+\subsection{Three-way interaction}
+
+The analysis revealed a significant three-way interaction between syntactic complexity, jargon density, and \textit{shall} usage ($\beta = 0.62$, $t(8) = 2.37$, $p = .045$). To interpret this interaction, we examined simple effects of jargon density at each combination of syntactic complexity and modal presence using estimated marginal means (Figure \ref{fig:interaction}).
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.95\linewidth]{figure_results.pdf}
+    \caption{Estimated marginal means for authoritativeness ratings across the eight experimental conditions. Error bars represent 95\% confidence intervals. The jargon effect (difference between high and low jargon) is significant only in the low syntax, without-\textit{shall} condition.}
+    \label{fig:interaction}
+\end{figure}
+
+The simple effects analysis revealed that jargon density significantly predicted authoritativeness ratings in only one of the four syntax-by-modal conditions: when syntactic complexity was low and the provision did not contain \textit{shall}, high-jargon provisions were rated as substantially more authoritative than low-jargon provisions ($\Delta = 0.45$, $z = 3.43$, $p < .001$). In the remaining three conditions, jargon density did not significantly affect authoritativeness ratings: high syntax without \textit{shall} ($\Delta = -0.10$, $z = -0.73$, $p = .47$), high syntax with \textit{shall} ($\Delta = 0.20$, $z = 1.55$, $p = .12$), and low syntax with \textit{shall} ($\Delta = 0.13$, $z = 0.97$, $p = .33$).
+
+This pattern suggests that jargon functions as an authority signal only under specific conditions: when the text is syntactically simple enough to parse and when the modal \textit{shall}---itself a potential marker of legal authority---is absent. When either syntactic complexity is high or \textit{shall} is present, jargon provides no additional boost to perceived authority.
+
+\subsection{Effects of comprehension}
+
+In a separate model, we examined whether trial-level comprehension accuracy predicted authoritativeness ratings. Correctly answering the comprehension question was associated with higher authoritativeness ratings ($\beta = 0.12$, $t(3155) = 2.08$, $p = .038$), indicating that participants rated provisions as more authoritative when they understood them correctly.  
+
+\section{Exploratory Analysis}
+Exploratory analysis of qualitative data from participants' commentary on their authoritativeness ratings provides some insight into the potential impact of \textit{shall} usage on the outcome variable.  Among the 252 free responses that specifically discuss \textit{shall}, two competing interpretations can be observed.  While some participants remarked that \textit{shall} indicates strong legal authority (\textit{e.g.}, "The use of the word "shall" makes it sound more authoritative because it makes it sound like a command."), other participants commented that \textit{shall} had the opposite effect on their authoritativeness rating (\textit{e.g.}, "The use of the phrase "shall" makes this piece of legislation sound less authoritative."). The majority of these responses reflected a belief that \textit{shall} increases authoritativeness, while a smaller subset described \textit{shall} as making the draft legislation sound less authoritative. Several participants' commentary reflected both beliefs over the course of the study, suggesting competing language ideologies regarding the modal's connotations in legal contexts.
+
+\section{Discussion}
+
+The three-way interaction between syntactic complexity, jargon density, and \textit{shall} usage reveals that the relationship between linguistic complexity and perceived authority is more nuanced than a simple main effect would suggest. Jargon functions as an authority signal only under specific conditions: when syntactic complexity is low and when the modal \textit{shall} is absent. This pattern has implications for theories of both legal language and performative speech acts.
+
+\subsection{Why does jargon work only with simple syntax?}
+
+One interpretation is that jargon serves as an indexical marker of legal expertise, but this signal can only be detected when readers are not overwhelmed by processing demands. When syntactic complexity is high, readers may be too occupied parsing the sentence structure to register the authority-signaling function of specialized terminology. This interpretation aligns with capacity-based accounts of language processing: authority signaling may be a secondary, pragmatic inference that requires spare cognitive resources \citep{gibson_how_2019}.
+
+Alternatively, the interaction may reflect a ceiling effect on perceived complexity. When syntax is already difficult, adding jargon provides no additional signal---the text is already maximally ``legal-sounding.'' Under this view, different complexity types are partially redundant signals of the same underlying construct.
+
+\subsection{Why does \textit{shall} neutralize the jargon effect?}
+
+The presence of \textit{shall} eliminated the jargon effect entirely, regardless of syntactic complexity. This suggests that \textit{shall} may itself serve as a sufficient marker of legal authority, rendering jargon redundant. The modal \textit{shall} is strongly associated with legal and formal registers \citep{brooks_shall_2026}, and its presence may activate a ``legal frame'' that subsumes the authority-signaling function of jargon.
+
+This interpretation is consistent with the qualitative data: participants frequently commented on \textit{shall} as sounding authoritative, suggesting explicit awareness of its register associations. Jargon, by contrast, may operate more implicitly---boosting authority perceptions only when no overt legal marker is present.
+
+\subsection{Implications for the Goldilocks hypothesis}
+
+These results provide partial support for the Goldilocks hypothesis, though not in the originally predicted form. Rather than finding that moderate complexity is optimal, we find that complexity types interact: semantic complexity (jargon) enhances authority only when syntactic complexity is low and explicit legal markers are absent. This suggests that the relationship between complexity and authority is not monotonic but conditional on the specific combination of linguistic features present.
+
+\subsection{Limitations}
+
+Several limitations warrant consideration. First, the stimuli were drawn from a single source (U.S. federal statutory law), limiting generalizability to other legal genres such as contracts or judicial opinions. Second, the binary manipulation of complexity levels (high vs. low quartiles) may obscure more fine-grained relationships. Third, the relatively high ceiling on authority ratings (mean = 3.98 on a 5-point scale) may have compressed the range of detectable effects.
+
+\section{Conclusion}
+Although language usage is mediated by efficiency, competing pressures such as the desire to be maximally informative or clear can function as countervailing forces. In specialized domains like law, the balance between efficiency and economy observed in so many areas of language use can be markedly distinct.  It is this markedness which makes legalese such fruitful topic of inquiry, not only for applied research but also for understanding when linguistic inefficiency might serve a functional purpose in the communicative process. In this paper, we have offered empirical evidence that linguistic complexity in the for of jargon usage can serve the socio-pragmatic function of signaling authoritativeness.  As in other areas of language usage, this function is does not operate in a vacuum. Rather, it is counterbalanced by a competing pressure to keep legal utterances intelligible, as poorly understood bills are perceived as less authoritative than complex, but clear draft laws. The continued study of language in specialized domains of usage has the potential to shed further insight into the balance of efficiency with other communicative constraints.
+
+\section{Acknowledgments}
+Generative AI assistance was used for the purpose of writing code to implement the experiment and managing data in the analysis process. Participant anonymity was carefully guarded and no participant data was shared outside the research team at any point.
+
+\printbibliography
+
+\end{document}

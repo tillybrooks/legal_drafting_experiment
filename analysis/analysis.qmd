@@ -1,0 +1,384 @@
+---
+title: "Legal Drafting Experiment Analysis"
+subtitle: "The socio-pragmatic function of linguistic complexity in the domain of law"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    code-fold: true
+    code-summary: "Show code"
+editor: visual
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  fig.width = 6,
+  fig.height = 4
+)
+```
+
+# Setup
+
+## Load packages
+
+```{r packages}
+library(tidyverse)
+library(jsonlite)
+library(lme4)
+library(lmerTest)
+library(emmeans)
+library(ggthemes)
+```
+
+## Load and preprocess data
+
+```{r load-data}
+# Load all participant CSVs
+data_dir <- "../data/full_sample/full_sample"
+files <- list.files(data_dir, pattern = "\\.csv$", full.names = TRUE)
+
+df_raw <- purrr::map_dfr(files, ~ readr::read_csv(.x, show_col_types = FALSE) %>%
+                           mutate(source_file = basename(.x)))
+
+# Create participant IDs
+file_map <- tibble(source_file = sort(unique(df_raw$source_file))) %>%
+  mutate(participant_file = sprintf("no.%03d", row_number()))
+
+df <- df_raw %>%
+  left_join(file_map, by = "source_file")
+
+# Fill condition info across trial phases
+df <- df %>%
+  arrange(participant_file, trial_index, time_elapsed) %>%
+  group_by(participant_file, sent_id) %>%
+  fill(condition, syn_level, sem_level, modal_pres, .direction = "downup") %>%
+  ungroup()
+
+cat("Participants:", n_distinct(df$participant_file), "\n")
+cat("Total rows:", nrow(df), "\n")
+```
+
+## Extract response variables
+
+### Comprehension accuracy
+
+```{r extract-comprehension}
+# Parse comprehension response from JSON
+parse_comp_response <- function(x) {
+  if (is.na(x)) return(NA_character_)
+  tryCatch({
+    parsed <- jsonlite::fromJSON(x)
+    if (!is.null(parsed$comp)) return(parsed$comp)
+    return(NA_character_)
+  }, error = function(e) NA_character_)
+}
+
+# Compute accuracy (comp_correct has extra quotes that need stripping)
+df <- df %>%
+  mutate(
+    comp_response_parsed = purrr::map_chr(response, parse_comp_response),
+    comp_correct_clean = gsub('^"|"$', '', comp_correct),
+    is_correct = ifelse(
+      phase == "comprehension",
+      trimws(comp_response_parsed) == trimws(comp_correct_clean),
+      NA
+    )
+  )
+```
+
+### Authority ratings
+
+```{r extract-authority}
+# Parse Likert rating from JSON
+extract_likert_q0 <- function(x) {
+  if (is.null(x) || length(x) == 0 || is.na(x)) return(NA_real_)
+  if (!is.character(x)) return(suppressWarnings(as.numeric(x)))
+  out <- tryCatch(jsonlite::fromJSON(x), error = function(e) NULL)
+  if (is.null(out)) return(suppressWarnings(as.numeric(x)))
+  if (is.atomic(out)) return(suppressWarnings(as.numeric(out)))
+  if (is.list(out) && !is.null(out[["Q0"]])) return(suppressWarnings(as.numeric(out[["Q0"]])))
+  NA_real_
+}
+
+# Extract and convert to 1-5 scale
+df <- df %>%
+  mutate(
+    authority_rating = ifelse(
+      phase == "authority_rating",
+      purrr::map_dbl(response, extract_likert_q0) + 1,
+      NA_real_
+    )
+  )
+```
+
+## Create analysis dataframes
+
+```{r analysis-dfs}
+# Authority ratings dataframe
+authority_df <- df %>%
+  filter(phase == "authority_rating") %>%
+  select(participant_file, sent_id, authority_rating, syn_level, sem_level, modal_pres)
+
+# Comprehension dataframe
+comp_df <- df %>%
+  filter(phase == "comprehension") %>%
+  select(participant_file, sent_id, is_correct, syn_level, sem_level, modal_pres)
+
+# Combined dataframe (for comprehension-authority analysis)
+combined_df <- authority_df %>%
+  inner_join(
+    comp_df %>% select(participant_file, sent_id, is_correct),
+    by = c("participant_file", "sent_id")
+  )
+
+cat("Authority observations:", nrow(authority_df), "\n")
+cat("Comprehension observations:", nrow(comp_df), "\n")
+```
+
+# Descriptive Statistics
+
+## Authority ratings
+
+```{r desc-authority}
+authority_df %>%
+  summarise(
+    Mean = mean(authority_rating, na.rm = TRUE),
+    SD = sd(authority_rating, na.rm = TRUE),
+    Median = median(authority_rating, na.rm = TRUE),
+    Min = min(authority_rating, na.rm = TRUE),
+    Max = max(authority_rating, na.rm = TRUE),
+    N = n()
+  ) %>%
+  knitr::kable(digits = 2, caption = "Authority rating summary")
+```
+
+```{r desc-authority-dist}
+authority_df %>%
+  count(authority_rating) %>%
+  mutate(Percent = sprintf("%.1f%%", n / sum(n) * 100)) %>%
+  knitr::kable(caption = "Distribution of authority ratings")
+```
+
+## Comprehension accuracy
+
+```{r desc-comprehension}
+comp_df %>%
+  summarise(
+    Accuracy = mean(is_correct, na.rm = TRUE),
+    N_correct = sum(is_correct, na.rm = TRUE),
+    N_total = n()
+  ) %>%
+  mutate(Accuracy = sprintf("%.1f%%", Accuracy * 100)) %>%
+  knitr::kable(caption = "Overall comprehension accuracy")
+```
+
+## By condition
+
+```{r desc-by-condition}
+authority_df %>%
+  group_by(syn_level, sem_level, modal_pres) %>%
+  summarise(
+    Mean = mean(authority_rating, na.rm = TRUE),
+    SD = sd(authority_rating, na.rm = TRUE),
+    N = n(),
+    .groups = "drop"
+  ) %>%
+  arrange(syn_level, sem_level, modal_pres) %>%
+  knitr::kable(digits = 2, caption = "Authority ratings by condition")
+```
+
+# Main Analysis: Three-Way Interaction Model
+
+## Model specification
+
+We fit a linear mixed-effects model with:
+
+- **Fixed effects**: Syntactic complexity × Jargon density × Modal presence (all interactions)
+- **Random effects**: Random intercepts for participant and item
+
+Random slopes were not included due to sparse within-cell observations (2 items per condition per participant), which caused singular fit.
+
+```{r model-3way}
+model_3way <- lmer(
+  authority_rating ~ syn_level * sem_level * modal_pres +
+    (1 | participant_file) + (1 | sent_id),
+  data = authority_df
+)
+
+summary(model_3way)
+```
+
+## Three-way interaction
+
+```{r interaction-test}
+# Test the three-way interaction
+anova(model_3way)
+```
+
+The three-way interaction is significant (p = .045), indicating that the effect of jargon depends on both syntactic complexity and modal presence.
+
+## Simple effects analysis
+
+To interpret the three-way interaction, we examine the effect of jargon at each combination of syntax and modal presence.
+
+```{r simple-effects}
+# Get estimated marginal means
+emm_3way <- emmeans(model_3way, ~ syn_level * sem_level * modal_pres)
+
+# Simple effects of jargon within each syntax × modal combination
+jargon_contrasts <- contrast(emm_3way, method = "pairwise", by = c("syn_level", "modal_pres"))
+summary(jargon_contrasts)
+```
+
+```{r simple-effects-table}
+# Create a cleaner summary table
+simple_effects <- as.data.frame(summary(jargon_contrasts)) %>%
+  filter(grepl("high - low", contrast)) %>%
+  mutate(
+    Syntax = ifelse(syn_level == "high", "High", "Low"),
+    Modal = ifelse(modal_pres == "S", "With shall", "Without shall"),
+    `Jargon effect (Δ)` = sprintf("%.2f", -estimate),  # flip sign for high-low
+    `z` = sprintf("%.2f", -z.ratio),
+    `p` = ifelse(p.value < .001, "< .001", sprintf("%.3f", p.value)),
+    Sig = ifelse(p.value < .05, "*", "")
+  ) %>%
+  select(Syntax, Modal, `Jargon effect (Δ)`, z, p, Sig)
+
+knitr::kable(simple_effects, caption = "Simple effects of jargon (high - low) at each syntax × modal combination")
+```
+
+**Key finding**: Jargon significantly increases authority ratings only when syntax is low AND shall is absent (Δ = 0.45, z = 3.43, p < .001).
+
+# Comprehension Analysis
+
+## Effect of comprehension on authority ratings
+
+```{r comp-authority-model}
+comp_authority_model <- lmer(
+  authority_rating ~ is_correct + (1 | participant_file) + (1 | sent_id),
+  data = combined_df
+)
+
+summary(comp_authority_model)
+```
+
+Correctly answering the comprehension question is associated with higher authority ratings (β = 0.12, p = .038).
+
+## Summary by comprehension
+
+```{r comp-authority-summary}
+combined_df %>%
+  group_by(is_correct) %>%
+  summarise(
+    Mean = mean(authority_rating, na.rm = TRUE),
+    SD = sd(authority_rating, na.rm = TRUE),
+    N = n(),
+    SE = SD / sqrt(N),
+    .groups = "drop"
+  ) %>%
+  mutate(Comprehension = ifelse(is_correct, "Correct", "Incorrect")) %>%
+  select(Comprehension, Mean, SD, N, SE) %>%
+  knitr::kable(digits = 2, caption = "Authority ratings by comprehension accuracy")
+```
+
+# Figures
+
+## Figure 1: Three-way interaction (main results)
+
+```{r figure-3way, fig.width=6.5, fig.height=4}
+# Get emmeans for plotting
+emm_df <- as.data.frame(emm_3way) %>%
+  mutate(
+    Syntax = factor(ifelse(syn_level == "high", "High", "Low"), levels = c("High", "Low")),
+    Jargon = factor(ifelse(sem_level == "high", "High jargon", "Low jargon"),
+                    levels = c("High jargon", "Low jargon")),
+    Modal = factor(ifelse(modal_pres == "S", "With 'shall'", "Without 'shall'"),
+                   levels = c("Without 'shall'", "With 'shall'"))
+  )
+
+# Create labels at midpoint of each line
+label_df <- emm_df %>%
+  group_by(Modal, Jargon) %>%
+  summarise(
+    y_mid = mean(emmean),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    x_mid = 1.5,
+    label = as.character(Jargon),
+    y_offset = ifelse(Jargon == "High jargon", 0.06, -0.06)
+  )
+
+# Plot
+p_3way <- ggplot(emm_df, aes(x = Syntax, y = emmean, color = Jargon, group = Jargon)) +
+  geom_line(linewidth = 1.2) +
+  geom_point(size = 3.5) +
+  geom_errorbar(aes(ymin = asymp.LCL, ymax = asymp.UCL), width = 0.08, linewidth = 0.8) +
+  geom_label(data = label_df,
+             aes(x = x_mid, y = y_mid + y_offset, label = label, color = Jargon),
+             size = 2.8, label.padding = unit(0.15, "lines"),
+             linewidth = 0, fill = "white", alpha = 0.85,
+             show.legend = FALSE) +
+  facet_wrap(~ Modal) +
+  scale_color_colorblind() +
+  scale_y_continuous(limits = c(3.4, 4.5), breaks = seq(3.5, 4.5, 0.25)) +
+  labs(
+    x = "Syntactic complexity",
+    y = "Authoritativeness rating"
+  ) +
+  theme_few(base_size = 12) +
+  theme(
+    legend.position = "none",
+    strip.text = element_text(size = 11, face = "bold"),
+    panel.spacing = unit(1.5, "lines")
+  )
+
+p_3way
+
+ggsave("../paper/figure_results.pdf", p_3way, width = 6.5, height = 4)
+ggsave("../paper/figure_results.png", p_3way, width = 6.5, height = 4, dpi = 300)
+```
+
+## Figure 2: Comprehension and authority
+
+```{r figure-comprehension, fig.width=4, fig.height=4}
+# Summary for plot
+comp_summary <- combined_df %>%
+  group_by(is_correct) %>%
+  summarise(
+    mean_rating = mean(authority_rating, na.rm = TRUE),
+    sd = sd(authority_rating, na.rm = TRUE),
+    n = n(),
+    se = sd / sqrt(n),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    Comprehension = factor(ifelse(is_correct, "Correct", "Incorrect"),
+                           levels = c("Incorrect", "Correct"))
+  )
+
+p_comp <- ggplot(comp_summary, aes(x = Comprehension, y = mean_rating)) +
+  geom_col(fill = "steelblue", width = 0.5) +
+  geom_errorbar(aes(ymin = mean_rating - 1.96*se, ymax = mean_rating + 1.96*se),
+                width = 0.12, linewidth = 0.8) +
+  scale_y_continuous(limits = c(0, 5), breaks = 1:5) +
+  labs(
+    x = "Comprehension question",
+    y = "Mean authoritativeness rating"
+  ) +
+  theme_few(base_size = 12)
+
+p_comp
+
+ggsave("../paper/figure_comprehension_authority.pdf", p_comp, width = 4, height = 4)
+ggsave("../paper/figure_comprehension_authority.png", p_comp, width = 4, height = 4, dpi = 300)
+```
+
+# Session Info
+
+```{r session-info}
+sessionInfo()
+```
