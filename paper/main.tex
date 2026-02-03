@@ -109,12 +109,12 @@ In this study, we aim to test whether there is a link between perceived authorit
     
 \end{enumerate}
 \section{Methods}
-In this experiment, participants were instructed to pretend that they were for legislators preparing bills on a variety of topics.  Informed that the drafters were seeking to make their draft laws as clear and authoritative sounding as possible, participants read variously complex legal provision, answered a multiple choice comprehension question, rated the authoritativeness of the draft law on a five point Likert scale, and then briefly described their reasoning for their rating.
+In this experiment, participants were instructed to pretend that they were consultants for legislators preparing bills on a variety of topics. Informed that the drafters were seeking to make their draft laws as clear and authoritative sounding as possible, participants read variously complex legal provisions, answered a four-alternative forced-choice comprehension question, rated the authoritativeness of the draft law on a five-point Likert scale (1 = ``not authoritative at all'' to 5 = ``very authoritative''), and then briefly described their reasoning for their rating. The experiment was implemented in jsPsych 7.3.0 and approved by the Stanford IRB (\#77226).
 
 \subsection{Experimental design}
 The study uses a 2x2x2 design, with the main manipulations in the experiment being syntactic complexity, legal jargon density, and \textit{shall} usage.  
 
-\subsubsection{Stimuli.}All stimuli consist of statutory provisions drawn from United States Code, the official publication of federal statutory law. side from appendices, the entirety of the code was used as a source for stimuli.\footnote{The data used in this project is available at \href{https://uscode.house.gov/download/download.shtml}{https://uscode.house.gov/download/download.shtml}. A} The statutes were parsed divided, into sentences, chunked into sentence clusters of three to four sentences, and then assessed for syntactic complexity and jargon density.  Syntactic complexity was measured in terms of mean dependency length across the sentence cluster.  Jargon density was calculated by identifying the proportion of specialized legal terms of each cluster that consisted of specialized legal terms. Jargon was identified using a glossary of the most common legal terms compiled using a variety of references commonly used in legal practice.\footnote{ This glossary may be found \href{https://legal.thomsonreuters.com/blog/legal-glossary/}{online} and in the project Github.}.  To avoid the conflation of semantic and syntactic complexity, the jargon list consists primarily of lexical items.
+\subsubsection{Stimuli.}All stimuli consist of statutory provisions drawn from United States Code, the official publication of federal statutory law. Aside from appendices, the entirety of the code was used as a source for stimuli.\footnote{The data used in this project is available at \href{https://uscode.house.gov/download/download.shtml}{https://uscode.house.gov/download/download.shtml}.} The statutes were parsed, divided into sentences, chunked into sentence clusters of three to four sentences, and then assessed for syntactic complexity and jargon density.  Syntactic complexity was measured in terms of mean dependency length across the sentence cluster.  Jargon density was calculated by identifying the proportion of specialized legal terms of each cluster that consisted of specialized legal terms. Jargon was identified using a glossary of the most common legal terms compiled using a variety of references commonly used in legal practice.\footnote{ This glossary may be found \href{https://legal.thomsonreuters.com/blog/legal-glossary/}{online} and in the project Github.}.  To avoid the conflation of semantic and syntactic complexity, the jargon list consists primarily of lexical items.
 
 The sentence chunks were then ranked by mean dependency length and jargon density.  Items in the top and bottom quartiles for each of the two properties were then identified and intersected.  Thus, a set of naturalistic stimuli representing four different levels of syntactic complexity and jargon usage was generated.  
 
@@ -134,17 +134,29 @@ Once potential items were categorized into the four conditions described above, 
     \label{fig:placeholder}
 \end{figure}
 
-\subsubsection{Procedure.}Participants (N=203) recruited via Prolific were instructed to pretend to be consultants for legislators working on a series of bills. They were informed that the drafters were interested in creating laws that sound as authoritative as possible and were seeking feedback from their constituents about their bills.  Participants then read brief statutory provisions, and, after reading the text, answered a multiple choice question about the contents of the section, rated the perceived authoritativeness of the section on a five point Likert scale, and wrote a brief description of  their reasoning for their authoritativeness rating. A within subject design was used, and all participants saw two items in each of the eight conditions. All participants completed sixteen trials, with two trials in each condition. The conditions were presented in a randomized order. 
+\subsubsection{Procedure.}Participants (N=203) were recruited via Prolific from the United States. Participants were instructed to pretend to be consultants for legislators working on a series of bills. They were informed that the drafters were interested in creating laws that sound as authoritative as possible and were seeking feedback from their constituents about their bills.
+
+On each trial, participants first read a brief statutory provision at their own pace. After advancing, they answered a four-alternative forced-choice comprehension question about the provision (without the ability to return to the text), rated the perceived authoritativeness of the provision on the five-point Likert scale, and wrote a brief description of their reasoning for their rating.
+
+A within-subjects design was used: all participants saw two randomly sampled items from each of the eight conditions, for a total of sixteen trials per participant. Trial order was randomized for each participant. No attention checks or exclusion criteria were applied. 
 
 \section{Results}
 
 Authoritativeness ratings across items were generally high, with a mean of 3.98 (SD = 1.09), a median of 4, and a mode of 5. The distribution was left-skewed: 40.5\% of ratings were 5 (very authoritative), 31.9\% were 4, 16.7\% were 3, 7.3\% were 2, and 3.6\% were 1 (not authoritative). Comprehension accuracy was high overall (M = 89.6\%), indicating that participants generally understood the statutory provisions.
 
-We analyzed the results using linear mixed-effects regression with authoritativeness rating as the outcome variable. Syntactic complexity, jargon density, and \textit{shall} usage were included as fixed effects, along with all two- and three-way interactions. Participant and item were included as random intercepts; the sparse within-cell observations (two items per condition per participant) precluded reliable estimation of random slopes.
+\subsection{Model specification}
+
+We analyzed authoritativeness ratings using linear mixed-effects regression implemented in lme4 \citep{bates_fitting_2015}. Syntactic complexity, jargon density, and \textit{shall} usage were included as sum-coded fixed effects, along with all two- and three-way interactions. Participant and item were included as random intercepts; the sparse within-cell observations (two items per condition per participant) precluded reliable estimation of random slopes. The random effects structure captured substantial between-participant variability (SD = 0.63) and modest between-item variability (SD = 0.12), with residual SD = 0.88.
+
+\subsection{Main effects and two-way interactions}
+
+The Type III ANOVA revealed no significant main effects of syntactic complexity ($F(1,8) = 0.01$, $p = .91$) or \textit{shall} usage ($F(1,8) = 0.06$, $p = .81$). There was a significant main effect of jargon density ($F(1,8) = 6.82$, $p = .03$), with high-jargon provisions rated as more authoritative than low-jargon provisions. However, this main effect was qualified by the significant three-way interaction reported below.
+
+None of the two-way interactions reached significance: syntax $\times$ jargon ($F(1,8) = 3.19$, $p = .11$), syntax $\times$ modal ($F(1,8) < 0.01$, $p = .95$), and jargon $\times$ modal ($F(1,8) < 0.01$, $p = .93$).
 
 \subsection{Three-way interaction}
 
-The analysis revealed a significant three-way interaction between syntactic complexity, jargon density, and \textit{shall} usage ($\beta = 0.62$, $t(8) = 2.37$, $p = .045$). To interpret this interaction, we examined simple effects of jargon density at each combination of syntactic complexity and modal presence using estimated marginal means (Figure \ref{fig:interaction}).
+The analysis revealed a significant three-way interaction between syntactic complexity, jargon density, and \textit{shall} usage ($F(1,8) = 5.61$, $p = .045$; $\beta = 0.62$, $t(8) = 2.37$). To interpret this interaction, we examined simple effects of jargon density at each combination of syntactic complexity and modal presence using estimated marginal means (Figure \ref{fig:interaction}).
 
 \begin{figure}[h]
     \centering
@@ -157,9 +169,16 @@ The simple effects analysis revealed that jargon density significantly predicted
 
 This pattern suggests that jargon functions as an authority signal only under specific conditions: when the text is syntactically simple enough to parse and when the modal \textit{shall}---itself a potential marker of legal authority---is absent. When either syntactic complexity is high or \textit{shall} is present, jargon provides no additional boost to perceived authority.
 
-\subsection{Effects of comprehension}
+\subsection{Individual differences in comprehension}
 
-In a separate model, we examined whether trial-level comprehension accuracy predicted authoritativeness ratings. Correctly answering the comprehension question was associated with higher authoritativeness ratings ($\beta = 0.12$, $t(3155) = 2.08$, $p = .038$), indicating that participants rated provisions as more authoritative when they understood them correctly.  
+We examined whether comprehension accuracy was related to authoritativeness ratings. At the participant level, overall comprehension accuracy was positively correlated with mean authority ratings ($r = .25$, $p < .001$; Figure \ref{fig:comprehension}). Participants who better understood the statutory provisions tended to rate them as more authoritative. Notably, this relationship was entirely between-person: a within-between decomposition revealed no significant within-person effect ($\beta = 0.09$, $t = 1.55$, $p = .12$), indicating that the association reflects stable individual differences rather than trial-by-trial variation in understanding.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\linewidth]{figure_comprehension_authority.pdf}
+    \caption{Relationship between participant-level comprehension accuracy and mean authoritativeness ratings. Each point represents one participant ($r = .25$, $p < .001$).}
+    \label{fig:comprehension}
+\end{figure}
 
 \section{Exploratory Analysis}
 Exploratory analysis of qualitative data from participants' commentary on their authoritativeness ratings provides some insight into the potential impact of \textit{shall} usage on the outcome variable.  Among the 252 free responses that specifically discuss \textit{shall}, two competing interpretations can be observed.  While some participants remarked that \textit{shall} indicates strong legal authority (\textit{e.g.}, "The use of the word "shall" makes it sound more authoritative because it makes it sound like a command."), other participants commented that \textit{shall} had the opposite effect on their authoritativeness rating (\textit{e.g.}, "The use of the phrase "shall" makes this piece of legislation sound less authoritative."). The majority of these responses reflected a belief that \textit{shall} increases authoritativeness, while a smaller subset described \textit{shall} as making the draft legislation sound less authoritative. Several participants' commentary reflected both beliefs over the course of the study, suggesting competing language ideologies regarding the modal's connotations in legal contexts.

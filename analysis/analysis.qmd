@@ -254,7 +254,7 @@ knitr::kable(simple_effects, caption = "Simple effects of jargon (high - low) at
 
 # Comprehension Analysis
 
-## Effect of comprehension on authority ratings
+## Trial-level effect of comprehension on authority ratings
 
 ```{r comp-authority-model}
 comp_authority_model <- lmer(
@@ -283,6 +283,50 @@ combined_df %>%
   select(Comprehension, Mean, SD, N, SE) %>%
   knitr::kable(digits = 2, caption = "Authority ratings by comprehension accuracy")
 ```
+
+## Between-person correlation
+
+```{r between-person-correlation}
+# Compute participant-level means
+participant_means <- combined_df %>%
+  group_by(participant_file) %>%
+  summarise(
+    comp_accuracy = mean(is_correct, na.rm = TRUE),
+    mean_authority = mean(authority_rating, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+# Between-person correlation
+cor_test <- cor.test(participant_means$comp_accuracy, participant_means$mean_authority)
+cat("Between-person correlation:\n")
+cat(sprintf("r = %.2f, t(%d) = %.2f, p = %.3f\n",
+            cor_test$estimate, cor_test$parameter, cor_test$statistic, cor_test$p.value))
+```
+
+## Within-between decomposition
+
+To determine whether the comprehension-authority relationship is driven by between-person differences (stable individual differences) or within-person variation (trial-by-trial), we decompose the effect.
+
+```{r within-between-decomposition}
+# Create within and between components
+combined_df <- combined_df %>%
+  group_by(participant_file) %>%
+  mutate(
+    comp_between = mean(is_correct, na.rm = TRUE),  # participant mean
+    comp_within = is_correct - comp_between          # deviation from participant mean
+  ) %>%
+  ungroup()
+
+# Model with within and between components
+within_between_model <- lmer(
+  authority_rating ~ comp_within + comp_between + (1 | participant_file) + (1 | sent_id),
+  data = combined_df
+)
+
+summary(within_between_model)
+```
+
+The within-between decomposition reveals that the association is entirely between-person: the between-person effect is significant, but the within-person effect is not, indicating that the relationship reflects stable individual differences rather than trial-by-trial variation in understanding.
 
 # Figures
 
@@ -344,37 +388,41 @@ ggsave("../paper/figure_results.png", p_3way, width = 6.5, height = 4, dpi = 300
 
 ## Figure 2: Comprehension and authority
 
-```{r figure-comprehension, fig.width=4, fig.height=4}
-# Summary for plot
-comp_summary <- combined_df %>%
-  group_by(is_correct) %>%
+```{r figure-comprehension, fig.width=5, fig.height=4}
+# Compute participant-level summary
+participant_summary <- combined_df %>%
+  group_by(participant_file) %>%
   summarise(
-    mean_rating = mean(authority_rating, na.rm = TRUE),
-    sd = sd(authority_rating, na.rm = TRUE),
-    n = n(),
-    se = sd / sqrt(n),
+    comp_accuracy = mean(is_correct, na.rm = TRUE) * 100,
+    mean_authority = mean(authority_rating, na.rm = TRUE),
     .groups = "drop"
   ) %>%
-  mutate(
-    Comprehension = factor(ifelse(is_correct, "Correct", "Incorrect"),
-                           levels = c("Incorrect", "Correct"))
-  )
+  filter(comp_accuracy >= 60) %>%  # Exclude sparse low-accuracy participants
 
-p_comp <- ggplot(comp_summary, aes(x = Comprehension, y = mean_rating)) +
-  geom_col(fill = "steelblue", width = 0.5) +
-  geom_errorbar(aes(ymin = mean_rating - 1.96*se, ymax = mean_rating + 1.96*se),
-                width = 0.12, linewidth = 0.8) +
-  scale_y_continuous(limits = c(0, 5), breaks = 1:5) +
+  mutate(log_comp = log10(comp_accuracy))
+
+# Add jitter manually on log scale for visualization
+set.seed(42)
+participant_summary <- participant_summary %>%
+  mutate(log_comp_jittered = log_comp + runif(n(), -0.015, 0.015))
+
+# Jittered scatter with loess on log-scaled x-axis
+p_comp <- ggplot(participant_summary, aes(x = 10^log_comp_jittered, y = mean_authority)) +
+  geom_point(alpha = 0.5, size = 2) +
+  geom_smooth(aes(x = comp_accuracy), method = "loess", se = TRUE,
+              color = "black", linewidth = 0.8, span = 0.9) +
+  scale_x_log10(breaks = c(60, 70, 80, 90, 100), limits = c(58, 105)) +
+  scale_y_continuous(limits = c(1.5, 5.2), breaks = 2:5) +
   labs(
-    x = "Comprehension question",
+    x = "Comprehension accuracy (%)",
     y = "Mean authoritativeness rating"
   ) +
   theme_few(base_size = 12)
 
 p_comp
 
-ggsave("../paper/figure_comprehension_authority.pdf", p_comp, width = 4, height = 4)
-ggsave("../paper/figure_comprehension_authority.png", p_comp, width = 4, height = 4, dpi = 300)
+ggsave("../paper/figure_comprehension_authority.pdf", p_comp, width = 5, height = 4)
+ggsave("../paper/figure_comprehension_authority.png", p_comp, width = 5, height = 4, dpi = 300)
 ```
 
 # Session Info
