@@ -3,7 +3,7 @@
 make_materials_from_uscode.py
 
 Goal:
-- Parse US Code XML (uscode.house.gov download) into candidate sentences, then chunks of 4-5 sentences.
+- Parse US Code XML (uscode.house.gov download) into candidate sentences, then chunks of 3-4 sentences.
 - Score each chunk for:
     (a) syntactic complexity: mean dependency length (avg |tok.i - tok.head.i|)
     (b) semantic complexity: jargon usage rate (token-in-jargon / content tokens)

@@ -1,0 +1,268 @@
+---
+title: "analysis"
+format: html
+editor: visual
+---
+
+# analysis for legal_drafting_experiment
+
+This document features the code used for the statistical analysis for the paper titled \`\`Sociopragmatic considerations and efficiency in a specialized domain of language use" \[title to be revised\].
+
+## analysis set up
+
+We'll begin with some simple set up. First, load necessary libraries (install these in console first if you don't have them already!). Next, define the directory where the data is.
+
+```{r}
+# load in packages
+library(tidyverse)
+library(jsonlite)
+library(lme4)
+library(lmerTest)   
+library(broom.mixed)  
+library(dplyr)
+library(tidyr)
+
+# name path to data
+data_dir <- "full_sample"
+```
+
+### compiling csvs
+
+compile the CSVs into a single dataframe.
+
+```{r}
+files <- list.files(data_dir, pattern = "\\.csv$", full.names = TRUE)
+
+df_raw <- purrr::map_dfr(files, ~ readr::read_csv(.x, show_col_types = FALSE) %>%
+                           mutate(source_file = basename(.x)))
+```
+
+### organizing entries by participant
+
+add a column of numbers to more easily distinguish participants from each other.
+
+```{r}
+file_map <- tibble(source_file = sort(unique(df_raw$source_file))) %>%
+  mutate(participant_file = sprintf("no.%03d", row_number()))
+
+df <- df_raw %>%
+  left_join(file_map, by = "source_file")
+```
+
+### make sure syn_level, sem_level, and modal_pres values are visible across trial phases
+
+```{r}
+df <- df %>%
+  arrange(participant_file, trial_index, time_elapsed) %>%  # ordering helps but isn't strictly required
+  group_by(participant_file, sent_id) %>%
+  fill(condition, syn_level, sem_level, modal_pres, .direction = "downup") %>%
+  ungroup()
+```
+
+### adding column for comprehension check accuracy
+
+Adding a column to keep track of accuracy on comprehension questions (the comp_accuracy checker in the experiment code erroneously returns FALSE for all entries).
+
+```{r}
+# helper function to extract response to comprehension questions as strings (they are stored inside JSON objects in the experiment CSVs)
+extract_comp_response <- function(x) {
+  if (is.na(x) || length(x) == 0) return(NA_character_)
+  
+  if (is.list(x)) {
+    if (!is.null(x$comp)) return(as.character(x$comp))
+    return(NA_character_)
+  }
+
+  if (is.character(x)) {
+    out <- tryCatch(fromJSON(x), error = function(e) NULL)
+    if (!is.null(out) && !is.null(out$comp)) return(as.character(out$comp))
+  }
+  
+  NA_character_
+}
+
+# function to extract results from JSON string
+extract_comp_response <- function(x_vec) {
+  map_chr(x_vec, function(x) {
+    if (is.na(x) || x == "") return(NA_character_)
+    if (!str_starts(x, "\\{")) return(NA_character_)  # not JSON object
+    tryCatch({
+      obj <- fromJSON(x)
+      if (!is.null(obj$comp)) as.character(obj$comp) else NA_character_
+    }, error = function(e) NA_character_)
+  })
+}
+
+# modify the df to include the new accuracy column
+
+df <- df %>%
+  mutate(
+    # extract response for all rows (comprehension questions and others)
+    comp_response_new = extract_comp_response(response),
+    comp_response_new = if_else(phase == "comprehension", comp_response_new, NA_character_),
+
+    # tidy up
+    comp_correct_clean = as.character(comp_correct) %>%
+      str_replace('^"(.*)"$', "\\1") %>%   # strip one pair of wrapping quotes
+      str_squish(),
+    comp_correct_clean = if_else(phase == "comprehension", comp_correct_clean, NA_character_),
+
+    # normalizing
+    comp_response_clean = comp_response_new %>% str_squish(),
+
+    # extra tidying
+    comp_accuracy_new = if_else(
+      phase == "comprehension" & !is.na(comp_response_clean) & !is.na(comp_correct_clean),
+      as.integer(comp_response_clean == comp_correct_clean),
+      NA_integer_
+    )
+  )
+```
+
+### extracting authority rating scores
+
+also need to extract authority rating scores
+
+```{r}
+#function to extract Likert scale ratings from JSON object
+extract_likert_q0 <- function(x) {
+  if (is.null(x) || length(x) == 0 || is.na(x)) return(NA_real_)
+
+  if (!is.character(x)) return(suppressWarnings(as.numeric(x)))
+
+  out <- tryCatch(jsonlite::fromJSON(x), error = function(e) NULL)
+
+  if (is.null(out)) return(suppressWarnings(as.numeric(x)))
+
+  if (is.atomic(out)) return(suppressWarnings(as.numeric(out)))
+
+  if (is.list(out) && !is.null(out$Q0)) return(suppressWarnings(as.numeric(out$Q0)))
+
+  NA_real_
+}
+
+# apply above function to df and convert saved authority rating values to 1-5 scale (instead of 0-4 as currently saved) for readability.
+df <- df %>%
+  mutate(
+    authority_raw = if_else(
+      phase == "authority_rating",
+      purrr::map_dbl(response, extract_likert_q0),
+      NA_real_
+    ),
+    authority_rating = if_else(
+      phase == "authority_rating",
+      authority_raw + 1,  
+      NA_real_
+    )
+  )
+```
+
+### making a cleaner df for modeling
+
+```{r}
+authority_df <- df %>%
+  filter(phase == "authority_rating") %>%
+  transmute(
+    participant_file,
+    sent_id,
+    condition,
+    authority_rating,
+    syn_level,
+    sem_level,
+    modal_pres
+  )
+```
+
+### making a df for coding explanations
+
+```{r}
+# making the df
+explanations_df <- df %>%
+  filter(phase == "authority_explanation") %>%
+  transmute(
+    participant_file,
+    sent_id,
+    condition,
+    authority_rating, 
+    explanation_text = response
+  )
+
+# writing the df to csv
+readr::write_csv(explanations_df, "authority_explanations.csv")
+
+```
+
+# lots of models !
+
+```{r}
+# looking at effect of condition on authority rating with participant and item as random intercepts
+total_cond <- lmer(authority_rating ~ condition + (1 | participant_file) + (1 | sent_id),
+              data = authority_df)
+
+summary(total_cond)
+```
+
+```{r}
+# looking at effect of syntactic complexity (syn_level) on authority rating with participant and item as random intercepts
+syn_model <- lmer(authority_rating ~ syn_level + (1 | participant_file) + (1 | sent_id),
+              data = authority_df)
+summary(syn_model)
+
+```
+
+```{r}
+# looking at effect of jargon density (sem_level) on authority rating with participant and item as random intercepts
+jargon_model <- lmer(authority_rating ~ sem_level + (1 | participant_file) + (1 | sent_id),
+              data = authority_df)
+summary(jargon_model)
+```
+
+```{r}
+# looking at effect of shall usage (modal_pres) on authority rating with participant and item as random intercepts
+modal_model <- lmer(authority_rating ~ modal_pres + (1 | participant_file) + (1 | sent_id),
+              data = authority_df)
+summary(modal_model)
+```
+
+```{r}
+# looking at interaction of  of shall usage (modal_pres) on authority rating with participant and item as random intercepts
+modal_model <- lmer(authority_rating ~ modal_pres + (1 | participant_file) + (1 | sent_id),
+              data = authority_df)
+summary(modal_model)
+```
+
+looking at
+
+```{r}
+comp_by_participant <- df %>%
+  filter(phase == "comprehension") %>%
+  group_by(participant_file) %>%
+  summarise(
+    comp_acc_mean = mean(comp_accuracy, na.rm = TRUE),
+    comp_acc_n = sum(!is.na(comp_accuracy)),
+    .groups = "drop"
+  ) %>%
+  mutate(low_comprehension = comp_acc_mean < 0.5)  
+
+authority_df <- authority_df %>%
+  left_join(comp_by_participant, by = "participant_file")
+
+
+df <- df %>%
+  arrange(participant_file, trial_index, time_elapsed) %>%  
+  group_by(sent_id) %>%
+  fill(authority_rating, comp_accuracy_new, .direction = "downup") %>%
+  ungroup()
+
+comp_model <- lmer(authority_rating ~ comp_accuracy_new + (1|participant_file) + (1|sent_id),
+               data = df)
+
+summary(comp_model)
+
+comp_model_clean <- lmer(
+  authority_rating ~ comp_accuracy_new +
+    (1 | participant_file) + (1 | sent_id),
+  data = df %>% filter(phase == "authority_rating")
+)
+summary(comp_model_clean)
+```

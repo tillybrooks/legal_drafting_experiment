@@ -1,0 +1,181 @@
+"view_history","rt","trial_type","trial_index","time_elapsed","internal_node_id","stimulus","response","phase","condition","syn_level","sem_level","modal_pres","sent_id","section_id","question_order","comp_correct","comp_response","comp_accuracy"
+"[{""page_index"":0,""viewing_time"":301725},{""page_index"":1,""viewing_time"":64965}]","366691","instructions","0","366701","0.0-0.0","","","","","","","","","","","","",""
+"","58633","html-button-response","1","425338","0.0-1.0","<p>Trial 1 of 16.</p> 
+            <p> Please read the draft provision below carefully.  Make sure you understand it before moving on to the next page!</p>
+
+            <div class=""draft-box"">
+              <div class=""draft-box-title"">Draft Legislation</div>
+              <p>The liquidating agent may disallow any portion of any claim by a creditor or claim of security, preference, or priority which is not proved to the satisfaction of the liquidating agent. No court may review the Board’s determination pursuant to subparagraph (D) to disallow a claim.</p>
+            </div>
+            ","0","read","LHM","low","high","partial_may","/us/usc/t12/s1787__s49_k3","/us/usc/t12/s1787","","","",""
+"","81422","survey-multi-choice","2","506762","0.0-2.0","","{""comp"":""The liquidating agent may disallow a claim, and no court may review that determination.""}","comprehension","LHM","","","","/us/usc/t12/s1787__s49_k3","","[0]","""The liquidating agent may disallow a claim, and no court may review that determination.""","","false"
+"","22358","survey-likert","3","529123","0.0-3.0","","{""Q0"":4}","authority_rating","LHM","","","","/us/usc/t12/s1787__s49_k3","","[0]","","",""
+"","237842","survey-text","4","766980","0.0-4.0","","{""Q0"":""It gives the agent power to disallow any claim, thus overriding any creditor if he's not satisfied. There is no review, so his decision is final, so that's a lot of authority given to one agent.""}","authority_explanation","LHM","","","","/us/usc/t12/s1787__s49_k3","","","","",""
+"","167663","html-button-response","5","934646","0.0-5.0","<p>Trial 2 of 16.</p> 
+            <p> Please read the draft provision below carefully.  Make sure you understand it before moving on to the next page!</p>
+
+            <div class=""draft-box"">
+              <div class=""draft-box-title"">Draft Legislation</div>
+              <p>[A] partnership petition by less than all of the general partners is treated as an involuntary, not a voluntary, petition. The court may, under subsection (e), require the petitioners to file a bond to indemnify the debtor for such amounts as the court may later allow under subsection (i). Subsection (i) provides for costs, attorneys fees, and damages in certain circumstances.</p>
+            </div>
+            ","0","read","HHM","high","high","partial_may","/us/usc/t11/s303__s55_k3","/us/usc/t11/s303","","","",""
+"","20461","survey-multi-choice","6","955110","0.0-6.0","","{""comp"":""That the petitioners file a bond to cover possible costs, fees, or damages.""}","comprehension","HHM","","","","/us/usc/t11/s303__s55_k3","","[0]","""That the petitioners file a bond to cover possible costs, fees, or damages.""","","false"
+"","30495","survey-likert","7","985608","0.0-7.0","","{""Q0"":2}","authority_rating","HHM","","","","/us/usc/t11/s303__s55_k3","","[0]","","",""
+"","116614","survey-text","8","1102227","0.0-8.0","","{""Q0"":""The word \""may\"" is used when describing the court's options. There is no \""must\"" or \""will,\"" so it seems rather neutral.""}","authority_explanation","HHM","","","","/us/usc/t11/s303__s55_k3","","","","",""
+"","171770","html-button-response","9","1274000","0.0-9.0","<p>Trial 3 of 16.</p> 
+            <p> Please read the draft provision below carefully.  Make sure you understand it before moving on to the next page!</p>
+
+            <div class=""draft-box"">
+              <div class=""draft-box-title"">Draft Legislation</div>
+              <p>The Secretary of the Treasury may by regulation prescribe for plan years beginning after December 31, 1999, mortality tables to be used in determining current liability under this subsection. Such tables shall be based upon the actual experience of pension plans and projected trends in such experience. In prescribing such tables, such Secretary shall take into account results of available independent studies of mortality of individuals covered by pension plans.</p>
+            </div>
+            ","0","read","LLS","low","low","S","/us/usc/t29/s1084__s70_k3","/us/usc/t29/s1084","","","",""
+"","23011","survey-multi-choice","10","1297014","0.0-10.0","","{""comp"":""Actual experience and projected trends of pension plans, along with results of available independent mortality studies.""}","comprehension","LLS","","","","/us/usc/t29/s1084__s70_k3","","[0]","""Actual experience and projected trends of pension plans, along with results of available independent mortality studies.""","","false"
+"","9510","survey-likert","11","1306526","0.0-11.0","","{""Q0"":3}","authority_rating","LLS","","","","/us/usc/t29/s1084__s70_k3","","[0]","","",""
+"","172858","survey-text","12","1479389","0.0-12.0","","{""Q0"":""The draft states what the Secretary \""shall \"" use particular tables and studies, so there are some specific requirements without any named flexibility.""}","authority_explanation","LLS","","","","/us/usc/t29/s1084__s70_k3","","","","",""
+"","65577","html-button-response","13","1544968","0.0-13.0","<p>Trial 4 of 16.</p> 
+            <p> Please read the draft provision below carefully.  Make sure you understand it before moving on to the next page!</p>
+
+            <div class=""draft-box"">
+              <div class=""draft-box-title"">Draft Legislation</div>
+              <p>In each State, an authorized criminal justice agency of the State shall report child abuse crime information to, or index child abuse crime information in, the national criminal history background check system. A criminal justice agency may satisfy the requirement of this subsection by reporting or indexing all felony and serious misdemeanor arrests and dispositions.</p>
+            </div>
+            ","0","read","HHS","high","high","S","/us/usc/t34/s40101__s1_k3","/us/usc/t34/s40101","","","",""
+"","31604","survey-multi-choice","14","1576575","0.0-14.0","","{""comp"":""By reporting or indexing child abuse crime information, including through reporting or indexing all felony and serious misdemeanor arrests and dispositions.""}","comprehension","HHS","","","","/us/usc/t34/s40101__s1_k3","","[0]","""By reporting or indexing child abuse crime information, including through reporting or indexing all felony and serious misdemeanor arrests and dispositions.""","","false"
+"","35864","survey-likert","15","1612442","0.0-15.0","","{""Q0"":3}","authority_rating","HHS","","","","/us/usc/t34/s40101__s1_k3","","[0]","","",""
+"","184520","survey-text","16","1796966","0.0-16.0","","{""Q0"":""It's not totally authoritive, though the \""shall report\"" is strong, there is an alternative option that \""may satisfy\"" the requirement, so that weakens the policy.""}","authority_explanation","HHS","","","","/us/usc/t34/s40101__s1_k3","","","","",""
+"","146885","html-button-response","17","1943853","0.0-17.0","<p>Trial 5 of 16.</p> 
+            <p> Please read the draft provision below carefully.  Make sure you understand it before moving on to the next page!</p>
+
+            <div class=""draft-box"">
+              <div class=""draft-box-title"">Draft Legislation</div>
+              <p>The Secretary may readjust the terms and conditions, except as otherwise provided herein, of any geothermal lease issued under this chapter at not less than ten-year intervals beginning ten years after the date the geothermal steam is produced, as determined by the Secretary. Each geothermal lease issued under this chapter shall provide for such readjustment. The Secretary shall give notice of any proposed readjustment of terms and conditions, and, unless the lessee files with the Secretary objection to the proposed terms or relinquishes the lease within thirty days after receipt of such notice, the lessee shall conclusively be deemed to have agreed with such terms and conditions.</p>
+            </div>
+            ","0","read","HHS","high","high","S","/us/usc/t30/s1007__s1_k3","/us/usc/t30/s1007","","","",""
+"","29585","survey-multi-choice","18","1973440","0.0-18.0","","{""comp"":""When the lessee does not object to the proposed terms or relinquish the lease within thirty days after receiving notice.""}","comprehension","HHS","","","","/us/usc/t30/s1007__s1_k3","","[0]","""When the lessee does not object to the proposed terms or relinquish the lease within thirty days after receiving notice.""","","false"
+"","36820","survey-likert","19","2010263","0.0-19.0","","{""Q0"":3}","authority_rating","HHS","","","","/us/usc/t30/s1007__s1_k3","","[0]","","",""
+"","303917","survey-text","20","2314185","0.0-20.0","","{""Q0"":""It gives the Secretary power he \""may\"" use, but only after he makes a decision to use it, he \""shall\"" give notice. And then after that there is time for the affected party to object, so it's not strongly authoritative. ""}","authority_explanation","HHS","","","","/us/usc/t30/s1007__s1_k3","","","","",""
+"","114916","html-button-response","21","2429105","0.0-21.0","<p>Trial 6 of 16.</p> 
+            <p> Please read the draft provision below carefully.  Make sure you understand it before moving on to the next page!</p>
+
+            <div class=""draft-box"">
+              <div class=""draft-box-title"">Draft Legislation</div>
+              <p>The failure of a court to meet or comply with a time limitation under this section shall not be a ground for granting relief from a judgment of conviction or sentence. The State may enforce a time limitation under this section by petitioning for a writ of mandamus to the court of appeals. The court of appeals shall act on the petition for a writ of mandamus not later than 30 days after the filing of the petition.</p>
+            </div>
+            ","0","read","LHS","low","high","S","/us/usc/t28/s2266__s13_k3","/us/usc/t28/s2266","","","",""
+"","9618","survey-multi-choice","22","2438726","0.0-22.0","","{""comp"":""The State may petition for a writ of mandamus to the court of appeals.""}","comprehension","LHS","","","","/us/usc/t28/s2266__s13_k3","","[0]","""The State may petition for a writ of mandamus to the court of appeals.""","","false"
+"","5298","survey-likert","23","2444026","0.0-23.0","","{""Q0"":1}","authority_rating","LHS","","","","/us/usc/t28/s2266__s13_k3","","[0]","","",""
+"","248614","survey-text","24","2692646","0.0-24.0","","{""Q0"":""It gives an option of how a court can avoid a time limitation, and how the state may then respond. Not particularly strong, the only real specific requirement is limiting the appeals court to 30 days to act after the other option has been taken.""}","authority_explanation","LHS","","","","/us/usc/t28/s2266__s13_k3","","","","",""
+"","450654","html-button-response","25","3143303","0.0-25.0","<p>Trial 7 of 16.</p> 
+            <p> Please read the draft provision below carefully.  Make sure you understand it before moving on to the next page!</p>
+
+            <div class=""draft-box"">
+              <div class=""draft-box-title"">Draft Legislation</div>
+              <p>An apprentice may:
+A) drive a commercial motor vehicle in interstate commerce while participating in the 120-hour probationary period under paragraph (2)(A) or the 280-hour probationary period under paragraph (2)(B) pursuant to an apprenticeship program established by an employer in accordance with this section; and 
+(B) drive a commercial motor vehicle in interstate commerce after the apprentice completes an apprenticeship program described in paragraph (2), unless the Secretary determines there exists a safety concern.</p>
+            </div>
+            ","0","read","HLM","high","low","partial_may","/us/usc/t49/s31315__s142_k3","/us/usc/t49/s31315","","","",""
+"","24297","survey-multi-choice","26","3167601","0.0-26.0","","{""comp"":""While participating in specified probationary periods and after completing the apprenticeship program, unless the Secretary determines there is a safety concern.""}","comprehension","HLM","","","","/us/usc/t49/s31315__s142_k3","","[0]","""While participating in specified probationary periods and after completing the apprenticeship program, unless the Secretary determines there is a safety concern.""","","false"
+"","4231","survey-likert","27","3171835","0.0-27.0","","{""Q0"":2}","authority_rating","HLM","","","","/us/usc/t49/s31315__s142_k3","","[0]","","",""
+"","174241","survey-text","28","3346082","0.0-28.0","","{""Q0"":""There seems to be too many options to consider it authoritative, although the Secretary is given power of oversight.""}","authority_explanation","HLM","","","","/us/usc/t49/s31315__s142_k3","","","","",""
+"","93221","html-button-response","29","3439306","0.0-29.0","<p>Trial 8 of 16.</p> 
+            <p> Please read the draft provision below carefully.  Make sure you understand it before moving on to the next page!</p>
+
+            <div class=""draft-box"">
+              <div class=""draft-box-title"">Draft Legislation</div>
+              <p>A property and fiscal officer may intrust money to an officer of the National Guard to make disbursements as his agent. Both the officer to whom money is intrusted, and the property and disbursing officer intrusting the money to him, are pecuniarily responsible for that money to the United States. The agent officer is subject, for misconduct as an agent, to the liabilities and penalties prescribed by law in like cases for the property and fiscal officer for whom he is acting.</p>
+            </div>
+            ","0","read","LHM","low","high","partial_may","/us/usc/t32/s708__s7_k3","/us/usc/t32/s708","","","",""
+"","70003","survey-multi-choice","30","3509310","0.0-30.0","","{""comp"":""Both the agent officer and the property and fiscal officer remain financially responsible to the United States for the money.""}","comprehension","LHM","","","","/us/usc/t32/s708__s7_k3","","[0]","""Both the agent officer and the property and fiscal officer remain financially responsible to the United States for the money.""","","false"
+"","16837","survey-likert","31","3526150","0.0-31.0","","{""Q0"":4}","authority_rating","LHM","","","","/us/usc/t32/s708__s7_k3","","[0]","","",""
+"","325418","survey-text","32","3851574","0.0-32.0","","{""Q0"":""The draft specifies both are responsible for the money and the consequences of misconduct. It doesn't offer an out, or lesser punishment. ""}","authority_explanation","LHM","","","","/us/usc/t32/s708__s7_k3","","","","",""
+"","123118","html-button-response","33","3974695","0.0-33.0","<p>Trial 9 of 16.</p> 
+            <p> Please read the draft provision below carefully.  Make sure you understand it before moving on to the next page!</p>
+
+            <div class=""draft-box"">
+              <div class=""draft-box-title"">Draft Legislation</div>
+              <p>The Librarian shall provide a seal to indicate that a film has been included in the National Film Registry and is the Registry version of that film. The Librarian shall establish guidelines for approval of the use of the seal in accordance with subsection (b). The seal provided under subsection (a)(3) may only be used on film or other approved copies of the Registry version of a film.</p>
+            </div>
+            ","0","read","LLS","low","low","S","/us/usc/t2/s179m__s7_k3","/us/usc/t2/s179m","","","",""
+"","24213","survey-multi-choice","34","3998909","0.0-34.0","","{""comp"":""To indicate that a film is included in the National Film Registry, and it may be used only on the Registry version of that film or approved copies.""}","comprehension","LLS","","","","/us/usc/t2/s179m__s7_k3","","[0]","""To indicate that a film is included in the National Film Registry, and it may be used only on the Registry version of that film or approved copies.""","","false"
+"","6688","survey-likert","35","4005599","0.0-35.0","","{""Q0"":4}","authority_rating","LLS","","","","/us/usc/t2/s179m__s7_k3","","[0]","","",""
+"","93668","survey-text","36","4099273","0.0-36.0","","{""Q0"":""The word \""shall\"" is authoritative, and the limits of the use of the seal are specific.""}","authority_explanation","LLS","","","","/us/usc/t2/s179m__s7_k3","","","","",""
+"","192528","html-button-response","37","4291804","0.0-37.0","<p>Trial 10 of 16.</p> 
+            <p> Please read the draft provision below carefully.  Make sure you understand it before moving on to the next page!</p>
+
+            <div class=""draft-box"">
+              <div class=""draft-box-title"">Draft Legislation</div>
+              <p>If at the termination of any fiscal year the legislature shall have failed to pass appropriation bills providing for payments of the necessary current expenses of the government and meeting its legal obligations for the ensuing fiscal year, then the several sums appropriated in the last appropriation bills for the objects and purposes therein specified, so far as the same may be applicable, shall be deemed to be reappropriated, item by item.</p>
+            </div>
+            ","0","read","HLS","high","low","S","/us/usc/t48/s1423j__s1_k3","/us/usc/t48/s1423j","","","",""
+"","11506","survey-multi-choice","38","4303312","0.0-38.0","","{""comp"":""The amounts from the most recent appropriation bills are treated as reapproved for the same purposes.""}","comprehension","HLS","","","","/us/usc/t48/s1423j__s1_k3","","[0]","""The amounts from the most recent appropriation bills are treated as reapproved for the same purposes.""","","false"
+"","13709","survey-likert","39","4317022","0.0-39.0","","{""Q0"":4}","authority_rating","HLS","","","","/us/usc/t48/s1423j__s1_k3","","[0]","","",""
+"","115171","survey-text","40","4432199","0.0-40.0","","{""Q0"":""The draft gives specific instructions and the results that will be obtained, without any options.""}","authority_explanation","HLS","","","","/us/usc/t48/s1423j__s1_k3","","","","",""
+"","22955","html-button-response","41","4455155","0.0-41.0","<p>Trial 11 of 16.</p> 
+            <p> Please read the draft provision below carefully.  Make sure you understand it before moving on to the next page!</p>
+
+            <div class=""draft-box"">
+              <div class=""draft-box-title"">Draft Legislation</div>
+              <p>The Secretary of the Treasury may contribute on behalf of the United States $150,000,000 to the first replenishment of the resources of the Enterprise for the Americas Multilateral Investment Fund. The authority provided by paragraph (1) may be exercised only to the extent and in the amounts provided for in advance in appropriations Acts.</p>
+            </div>
+            ","0","read","LLM","low","low","partial_may","/us/usc/t22/s283z–11__s1_k3","/us/usc/t22/s283z–11","","","",""
+"","23632","survey-multi-choice","42","4478789","0.0-42.0","","{""comp"":""Whenever the Secretary determines that the contribution is in the national interest.""}","comprehension","LLM","","","","/us/usc/t22/s283z–11__s1_k3","","[0]","""Only to the extent and in the amounts authorized in advance by appropriations Acts.""","","false"
+"","110261","survey-likert","43","4589051","0.0-43.0","","{""Q0"":3}","authority_rating","LLM","","","","/us/usc/t22/s283z–11__s1_k3","","[0]","","",""
+"","190086","survey-text","44","4779139","0.0-44.0","","{""Q0"":""The contribution is an option, not required, but there are some restrictions on the use.""}","authority_explanation","LLM","","","","/us/usc/t22/s283z–11__s1_k3","","","","",""
+"","41229","html-button-response","45","4820370","0.0-45.0","<p>Trial 12 of 16.</p> 
+            <p> Please read the draft provision below carefully.  Make sure you understand it before moving on to the next page!</p>
+
+            <div class=""draft-box"">
+              <div class=""draft-box-title"">Draft Legislation</div>
+              <p>No funds provided under this section may be used to construct or renovate a building or structure. Section was enacted as part of the America COMPETES Reauthorization Act of 2010, also known as the America Creating Opportunities to Meaningfully Promote Excellence in Technology, Education, and Science Reauthorization Act of 2010, and also as part of the National Science Foundation Authorization Act of 2010, and not as part of the National Science Foundation Act of 1950 which comprises this chapter.</p>
+            </div>
+            ","0","read","HLM","high","low","partial_may","/us/usc/t42/s1862p–2__s10_k3","/us/usc/t42/s1862p–2","","","",""
+"","47516","survey-multi-choice","46","4867887","0.0-46.0","","{""comp"":""They may not be used to construct or renovate a building or structure.""}","comprehension","HLM","","","","/us/usc/t42/s1862p–2__s10_k3","","[0]","""They may not be used to construct or renovate a building or structure.""","","false"
+"","5343","survey-likert","47","4873232","0.0-47.0","","{""Q0"":4}","authority_rating","HLM","","","","/us/usc/t42/s1862p–2__s10_k3","","[0]","","",""
+"","185670","survey-text","48","5058908","0.0-48.0","","{""Q0"":""The draft is specific with no alternative given, so it's very authoritative.""}","authority_explanation","HLM","","","","/us/usc/t42/s1862p–2__s10_k3","","","","",""
+"","96083","html-button-response","49","5154993","0.0-49.0","<p>Trial 13 of 16.</p> 
+            <p> Please read the draft provision below carefully.  Make sure you understand it before moving on to the next page!</p>
+
+            <div class=""draft-box"">
+              <div class=""draft-box-title"">Draft Legislation</div>
+              <p>The Secretary may also contract for inspections or examinations in the United States and in foreign countries. The primary reason for including a provision that permits the contracting for the conduct of inspections and examinations is to provide flexibility in foreign areas where Coast Guard marine inspectors are not normally available. A contract inspector may be authorized to act on behalf of the Secretary, but may not issue a certificate of inspection or compliance.</p>
+            </div>
+            ","0","read","LLM","low","low","partial_may","/us/usc/t46/s3714__s19_k3","/us/usc/t46/s3714","","","",""
+"","28804","survey-multi-choice","50","5183798","0.0-50.0","","{""comp"":""They may act on behalf of the Secretary to conduct inspections or examinations, but may not issue a certificate of inspection or compliance.""}","comprehension","LLM","","","","/us/usc/t46/s3714__s19_k3","","[0]","""They may act on behalf of the Secretary to conduct inspections or examinations, but may not issue a certificate of inspection or compliance.""","","false"
+"","64038","survey-likert","51","5247838","0.0-51.0","","{""Q0"":3}","authority_rating","LLM","","","","/us/usc/t46/s3714__s19_k3","","[0]","","",""
+"","383760","survey-text","52","5631602","0.0-52.0","","{""Q0"":""The Secretary may use their judgment to contract, so there are no clear instructions on that. The only athoritative provision is one prohibiting a contracted inspector from issuing certificates of inspection.""}","authority_explanation","LLM","","","","/us/usc/t46/s3714__s19_k3","","","","",""
+"","36395","html-button-response","53","5668001","0.0-53.0","<p>Trial 14 of 16.</p> 
+            <p> Please read the draft provision below carefully.  Make sure you understand it before moving on to the next page!</p>
+
+            <div class=""draft-box"">
+              <div class=""draft-box-title"">Draft Legislation</div>
+              <p>As the Administrator deems necessary in the public interest, the Administrator may direct officers and employees of the Administration to carry firearms while in the conduct of their official duties; and authorize employees of contractors and subcontractors of the Administration who are engaged in the protection of property owned by the United States, and located at facilities owned by or contracted to the United States, to carry firearms while in the conduct of their official duties.</p>
+            </div>
+            ","0","read","HHM","high","high","partial_may","/us/usc/t51/s20133__s1_k3","/us/usc/t51/s20133","","","",""
+"","12632","survey-multi-choice","54","5680634","0.0-54.0","","{""comp"":""Officers and employees of the Administration, as well as certain contractor and subcontractor employees protecting U.S.-owned property.""}","comprehension","HHM","","","","/us/usc/t51/s20133__s1_k3","","[0]","""Officers and employees of the Administration, as well as certain contractor and subcontractor employees protecting U.S.-owned property.""","","false"
+"","15361","survey-likert","55","5695996","0.0-55.0","","{""Q0"":1}","authority_rating","HHM","","","","/us/usc/t51/s20133__s1_k3","","[0]","","",""
+"","147539","survey-text","56","5843540","0.0-56.0","","{""Q0"":""The draft offers no instruction on what the Administrator should do, it's totally up to them with few restrictions.""}","authority_explanation","HHM","","","","/us/usc/t51/s20133__s1_k3","","","","",""
+"","85172","html-button-response","57","5928714","0.0-57.0","<p>Trial 15 of 16.</p> 
+            <p> Please read the draft provision below carefully.  Make sure you understand it before moving on to the next page!</p>
+
+            <div class=""draft-box"">
+              <div class=""draft-box-title"">Draft Legislation</div>
+              <p>A subpoena under this subsection may be served anywhere in the United States. A witness subpoenaed under this subsection shall receive the same fees and expenses as a witness subpoenaed in connection with a civil proceeding in a court of the United States. Nothing in this subsection is intended to allow an alien to have access to classified information.</p>
+            </div>
+            ","0","read","LHS","low","high","S","/us/usc/t8/s1534__s31_k4","/us/usc/t8/s1534","","","",""
+"","9866","survey-multi-choice","58","5938581","0.0-58.0","","{""comp"":""They may be served anywhere in the United States and are entitled to the same fees and expenses as witnesses in federal civil proceedings.""}","comprehension","LHS","","","","/us/usc/t8/s1534__s31_k4","","[0]","""They may be served anywhere in the United States and are entitled to the same fees and expenses as witnesses in federal civil proceedings.""","","false"
+"","11717","survey-likert","59","5950299","0.0-59.0","","{""Q0"":3}","authority_rating","LHS","","","","/us/usc/t8/s1534__s31_k4","","[0]","","",""
+"","171513","survey-text","60","6121816","0.0-60.0","","{""Q0"":""The draft starts out weakly with \""may be served,\"" but then it turns clear and authoritative with \""shall receive the same fees.\""""}","authority_explanation","LHS","","","","/us/usc/t8/s1534__s31_k4","","","","",""
+"","55239","html-button-response","61","6177057","0.0-61.0","<p>Trial 16 of 16.</p> 
+            <p> Please read the draft provision below carefully.  Make sure you understand it before moving on to the next page!</p>
+
+            <div class=""draft-box"">
+              <div class=""draft-box-title"">Draft Legislation</div>
+              <p>Where miners are exposed to danger from falls of roof, face, and ribs the operator shall examine and test the roof, face, and ribs before any work or machine is started, and as frequently thereafter as may be necessary to insure safety. When dangerous conditions are found, they shall be corrected immediately.</p>
+            </div>
+            ","0","read","HLS","high","low","S","/us/usc/t30/s862__s31_k3","/us/usc/t30/s862","","","",""
+"","15187","survey-multi-choice","62","6192246","0.0-62.0","","{""comp"":""Examine and test the roof, face, and ribs before work or machines start and as often as needed afterward, and correct dangerous conditions immediately.""}","comprehension","HLS","","","","/us/usc/t30/s862__s31_k3","","[0]","""Examine and test the roof, face, and ribs before work or machines start and as often as needed afterward, and correct dangerous conditions immediately.""","","false"
+"","25609","survey-likert","63","6217856","0.0-63.0","","{""Q0"":4}","authority_rating","HLS","","","","/us/usc/t30/s862__s31_k3","","[0]","","",""
+"","151958","survey-text","64","6369818","0.0-64.0","","{""Q0"":""The draft is clear and specific on what is to be done, and authoritative language like \""the operator shall examine,\""  and  \""they shall be corrected\"" is used. ""}","authority_explanation","HLS","","","","/us/usc/t30/s862__s31_k3","","","","",""
+"","6261","html-keyboard-response","65","6376083","0.0-65.0","<div class=""content""><h2>Thank you!</h2><p>The experiment is now complete.</p><p> Please wait for the data to save before closing this tab.</p><p>Press SPACE to finalize.</p>"," ","","","","","","","","","","",""
