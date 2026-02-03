@@ -266,3 +266,27 @@ comp_model_clean <- lmer(
 )
 summary(comp_model_clean)
 ```
+
+## some figures
+
+```{r}
+library(ggplot2)
+
+```
+
+plot of authoritativeness ratings
+
+```{r}
+authority_df %>%
+  dplyr::count(authority_rating) %>%
+  mutate(prop = n / sum(n)) %>%
+  ggplot(aes(x = factor(authority_rating), y = prop)) +
+  geom_col(fill = "grey70", color = "grey30") +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1)) +
+  labs(
+    x = "",
+    y = "",
+  ) +
+  theme_minimal(base_size = 17)+
+  theme(text = element_text(family = "serif"))
+```
